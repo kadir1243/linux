@@ -26,6 +26,7 @@ properties:
           - qcom,msm8916-rpmpd
           - qcom,msm8917-rpmpd
           - qcom,msm8939-rpmpd
+          - qcom,msm8952-rpmpd
           - qcom,msm8953-rpmpd
           - qcom,msm8974-rpmpd
           - qcom,msm8974pro-pma8084-rpmpd

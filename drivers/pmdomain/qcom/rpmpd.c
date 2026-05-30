@@ -688,6 +688,20 @@ static const struct rpmpd_desc msm8939_desc = {
 	.max_state = MAX_CORNER_RPMPD_STATE,
 };
 
+static struct rpmpd *msm8952_rpmpds[] = {
+	[MSM8952_VDDCX] =	&cx_s2a_lvl,
+	[MSM8952_VDDCX_AO] =	&cx_s2a_lvl_ao,
+	[MSM8952_VDDCX_VFL] =	&cx_s2a_vfl,
+	[MSM8952_VDDMX] =	&mx_l3a_lvl,
+	[MSM8952_VDDMX_AO] =	&mx_l3a_lvl_ao,
+};
+
+static const struct rpmpd_desc msm8952_desc = {
+	.rpmpds = msm8952_rpmpds,
+	.num_pds = ARRAY_SIZE(msm8952_rpmpds),
+	.max_state = MAX_CORNER_RPMPD_STATE,
+};
+
 static struct rpmpd *msm8916_rpmpds[] = {
 	[RPMPD_VDDCX] =		&cx_s1a_corner,
 	[RPMPD_VDDCX_AO] =	&cx_s1a_corner_ao,
@@ -980,6 +994,7 @@ static const struct of_device_id rpmpd_match_table[] = {
 	{ .compatible = "qcom,msm8916-rpmpd", .data = &msm8916_desc },
 	{ .compatible = "qcom,msm8917-rpmpd", .data = &msm8917_desc },
 	{ .compatible = "qcom,msm8939-rpmpd", .data = &msm8939_desc },
+	{ .compatible = "qcom,msm8952-rpmpd", .data = &msm8952_desc },
 	{ .compatible = "qcom,msm8953-rpmpd", .data = &msm8953_desc },
 	{ .compatible = "qcom,msm8974-rpmpd", .data = &msm8974_desc },
 	{ .compatible = "qcom,msm8974pro-pma8084-rpmpd", .data = &msm8974pro_pma8084_desc },
