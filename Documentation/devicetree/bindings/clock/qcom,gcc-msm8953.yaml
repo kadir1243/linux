@@ -24,6 +24,7 @@ properties:
     enum:
       - qcom,gcc-msm8937
       - qcom,gcc-msm8940
+      - qcom,gcc-msm8952
       - qcom,gcc-msm8953
       - qcom,gcc-sdm439
 
