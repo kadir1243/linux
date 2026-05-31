@@ -647,9 +647,9 @@
 			reg = <0x00060000 0x8000>;
 		};
 
-		rng@e3000 {
+		rng@22000 {
 			compatible = "qcom,prng";
-			reg = <0x000e3000 0x1000>;
+			reg = <0x00022000 0x140>;
 			clocks = <&gcc GCC_PRNG_AHB_CLK>;
 			clock-names = "core";
 		};
@@ -1132,7 +1132,7 @@
 					 <&gcc GCC_OXILI_TIMER_CLK>;
 			power-domains = <&gcc OXILI_GDSC>;
 			operating-points-v2 = <&opp_table>;
-			iommus = <&gpu_iommu 1>, <&gpu_iommu 2>;
+			iommus = <&gpu_iommu 0>, <&gpu_iommu 1>;
 			#cooling-cells = <2>;
 
 			status = "disabled";
@@ -1168,7 +1168,7 @@
 
 		apps_iommu: iommu@1e00000 {
 			compatible = "qcom,msm8952-iommu", "qcom,msm-iommu-v2";
-			reg = <0x01e00000 0x3000>;
+			reg = <0x01e00000 0x40000>;
 			ranges = <0 0x01e20000 0x20000>;
 
 			clocks = <&gcc GCC_SMMU_CFG_CLK>,
