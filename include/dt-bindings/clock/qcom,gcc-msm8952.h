@@ -231,8 +231,8 @@
 #define MCLK2_CLK_SRC					222
 #define GCC_CAMSS_MCLK2_CLK				223
 #define GCC_VFE1_TBU_CLK				224
-#define GCC_IPA_TBU_CLK				225
-#define GCC_CAMSS_CPP_AXI_CLK       226
+#define GCC_IPA_TBU_CLK					225
+#define GCC_CAMSS_CPP_AXI_CLK				226
 
 /* Indexes for GDSCs */
 #define BIMC_GDSC				0
