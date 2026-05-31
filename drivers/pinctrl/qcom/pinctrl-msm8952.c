@@ -9,7 +9,7 @@
 
 #include "pinctrl-msm.h"
 
-static const struct pinctrl_pin_desc msm8916_pins[] = {
+static const struct pinctrl_pin_desc msm8952_pins[] = {
 	PINCTRL_PIN(0, "GPIO_0"),
 	PINCTRL_PIN(1, "GPIO_1"),
 	PINCTRL_PIN(2, "GPIO_2"),
@@ -132,18 +132,30 @@ static const struct pinctrl_pin_desc msm8916_pins[] = {
 	PINCTRL_PIN(119, "GPIO_119"),
 	PINCTRL_PIN(120, "GPIO_120"),
 	PINCTRL_PIN(121, "GPIO_121"),
-	PINCTRL_PIN(122, "SDC1_CLK"),
-	PINCTRL_PIN(123, "SDC1_CMD"),
-	PINCTRL_PIN(124, "SDC1_DATA"),
-	PINCTRL_PIN(125, "SDC2_CLK"),
-	PINCTRL_PIN(126, "SDC2_CMD"),
-	PINCTRL_PIN(127, "SDC2_DATA"),
-	PINCTRL_PIN(128, "QDSD_CLK"),
-	PINCTRL_PIN(129, "QDSD_CMD"),
-	PINCTRL_PIN(130, "QDSD_DATA0"),
-	PINCTRL_PIN(131, "QDSD_DATA1"),
-	PINCTRL_PIN(132, "QDSD_DATA2"),
-	PINCTRL_PIN(133, "QDSD_DATA3"),
+	PINCTRL_PIN(122, "GPIO_122"),
+	PINCTRL_PIN(123, "GPIO_123"),
+	PINCTRL_PIN(124, "GPIO_124"),
+	PINCTRL_PIN(125, "GPIO_125"),
+	PINCTRL_PIN(126, "GPIO_126"),
+	PINCTRL_PIN(127, "GPIO_127"),
+	PINCTRL_PIN(128, "GPIO_128"),
+	PINCTRL_PIN(129, "GPIO_129"),
+	PINCTRL_PIN(130, "GPIO_130"),
+	PINCTRL_PIN(131, "GPIO_131"),
+	PINCTRL_PIN(132, "GPIO_132"),
+	PINCTRL_PIN(133, "GPIO_133"),
+	PINCTRL_PIN(134, "SDC1_CLK"),
+	PINCTRL_PIN(135, "SDC1_CMD"),
+	PINCTRL_PIN(136, "SDC1_DATA"),
+	PINCTRL_PIN(137, "SDC2_CLK"),
+	PINCTRL_PIN(138, "SDC2_CMD"),
+	PINCTRL_PIN(139, "SDC2_DATA"),
+	PINCTRL_PIN(140, "QDSD_CLK"),
+	PINCTRL_PIN(141, "QDSD_CMD"),
+	PINCTRL_PIN(142, "QDSD_DATA0"),
+	PINCTRL_PIN(143, "QDSD_DATA1"),
+	PINCTRL_PIN(144, "QDSD_DATA2"),
+	PINCTRL_PIN(145, "QDSD_DATA3"),
 };
 
 #define DECLARE_MSM_GPIO_PINS(pin)	\
@@ -271,19 +283,31 @@ DECLARE_MSM_GPIO_PINS(118);
 DECLARE_MSM_GPIO_PINS(119);
 DECLARE_MSM_GPIO_PINS(120);
 DECLARE_MSM_GPIO_PINS(121);
+DECLARE_MSM_GPIO_PINS(122);
+DECLARE_MSM_GPIO_PINS(123);
+DECLARE_MSM_GPIO_PINS(124);
+DECLARE_MSM_GPIO_PINS(125);
+DECLARE_MSM_GPIO_PINS(126);
+DECLARE_MSM_GPIO_PINS(127);
+DECLARE_MSM_GPIO_PINS(128);
+DECLARE_MSM_GPIO_PINS(129);
+DECLARE_MSM_GPIO_PINS(130);
+DECLARE_MSM_GPIO_PINS(131);
+DECLARE_MSM_GPIO_PINS(132);
+DECLARE_MSM_GPIO_PINS(133);
 
-static const unsigned int sdc1_clk_pins[] = { 122 };
-static const unsigned int sdc1_cmd_pins[] = { 123 };
-static const unsigned int sdc1_data_pins[] = { 124 };
-static const unsigned int sdc2_clk_pins[] = { 125 };
-static const unsigned int sdc2_cmd_pins[] = { 126 };
-static const unsigned int sdc2_data_pins[] = { 127 };
-static const unsigned int qdsd_clk_pins[] = { 128 };
-static const unsigned int qdsd_cmd_pins[] = { 129 };
-static const unsigned int qdsd_data0_pins[] = { 130 };
-static const unsigned int qdsd_data1_pins[] = { 131 };
-static const unsigned int qdsd_data2_pins[] = { 132 };
-static const unsigned int qdsd_data3_pins[] = { 133 };
+static const unsigned int sdc1_clk_pins[] = { 134 };
+static const unsigned int sdc1_cmd_pins[] = { 135 };
+static const unsigned int sdc1_data_pins[] = { 136 };
+static const unsigned int sdc2_clk_pins[] = { 137 };
+static const unsigned int sdc2_cmd_pins[] = { 138 };
+static const unsigned int sdc2_data_pins[] = { 139 };
+static const unsigned int qdsd_clk_pins[] = { 140 };
+static const unsigned int qdsd_cmd_pins[] = { 141 };
+static const unsigned int qdsd_data0_pins[] = { 142 };
+static const unsigned int qdsd_data1_pins[] = { 143 };
+static const unsigned int qdsd_data2_pins[] = { 144 };
+static const unsigned int qdsd_data3_pins[] = { 145 };
 
 #define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9)	\
 	{							\
@@ -350,7 +374,7 @@ static const unsigned int qdsd_data3_pins[] = { 133 };
 		.intr_detection_width = -1,		\
 	}
 
-enum msm8916_functions {
+enum msm8952_functions {
 	msm_mux_adsp_ext,
 	msm_mux_alsp_int,
 	msm_mux_atest_bbrx0,
@@ -500,7 +524,9 @@ static const char * const gpio_groups[] = {
 	"gpio99", "gpio100", "gpio101", "gpio102", "gpio103", "gpio104",
 	"gpio105", "gpio106", "gpio107", "gpio108", "gpio109", "gpio110",
 	"gpio111", "gpio112", "gpio113", "gpio114", "gpio115", "gpio116",
-	"gpio117", "gpio118", "gpio119", "gpio120", "gpio121"
+	"gpio117", "gpio118", "gpio119", "gpio120", "gpio121", "gpio122",
+	"gpio123", "gpio124", "gpio125", "gpio126", "gpio127", "gpio128",
+	"gpio129", "gpio130", "gpio131", "gpio132", "gpio133",
 };
 static const char * const adsp_ext_groups[] = { "gpio38" };
 static const char * const alsp_int_groups[] = { "gpio113" };
@@ -673,7 +699,7 @@ static const char * const wcss_wlan_groups[] = {
 };
 static const char * const webcam1_rst_groups[] = { "gpio28" };
 
-static const struct pinfunction msm8916_functions[] = {
+static const struct pinfunction msm8952_functions[] = {
 	MSM_PIN_FUNCTION(adsp_ext),
 	MSM_PIN_FUNCTION(alsp_int),
 	MSM_PIN_FUNCTION(atest_bbrx0),
@@ -804,7 +830,7 @@ static const struct pinfunction msm8916_functions[] = {
 	MSM_PIN_FUNCTION(webcam1_rst)
 };
 
-static const struct msm_pingroup msm8916_groups[] = {
+static const struct msm_pingroup msm8952_groups[] = {
 	PINGROUP(0, blsp_spi1, blsp_uart1, blsp_uim1, dmic0_clk, NA, NA, NA, NA, NA),
 	PINGROUP(1, blsp_spi1, blsp_uart1, blsp_uim1, dmic0_data, NA, NA, NA, NA, NA),
 	PINGROUP(2, blsp_spi1, blsp_uart1, blsp_i2c1, NA, NA, NA, NA, NA, NA),
@@ -927,6 +953,18 @@ static const struct msm_pingroup msm8916_groups[] = {
 	PINGROUP(119, sec_mi2s, m_voc, NA, NA, NA, NA, NA, NA, NA),
 	PINGROUP(120, blsp_spi3_cs1, ldo_update, NA, NA, NA, NA, NA, NA, NA),
 	PINGROUP(121, sd_write, blsp_spi2_cs1, ldo_en, NA, NA, NA, NA, NA, NA),
+	PINGROUP(122, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(123, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(124, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(125, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(126, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(127, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(128, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(129, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(130, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(131, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(132, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(133, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 	SDC_PINGROUP(sdc1_clk, 0x10a000, 13, 6),
 	SDC_PINGROUP(sdc1_cmd, 0x10a000, 11, 3),
 	SDC_PINGROUP(sdc1_data, 0x10a000, 9, 0),
@@ -941,48 +979,48 @@ static const struct msm_pingroup msm8916_groups[] = {
 	SDC_PINGROUP(qdsd_data3, 0x19c000, 28, 25),
 };
 
-#define NUM_GPIO_PINGROUPS	122
+#define NUM_GPIO_PINGROUPS	134
 
-static const struct msm_pinctrl_soc_data msm8916_pinctrl = {
-	.pins = msm8916_pins,
-	.npins = ARRAY_SIZE(msm8916_pins),
-	.functions = msm8916_functions,
-	.nfunctions = ARRAY_SIZE(msm8916_functions),
-	.groups = msm8916_groups,
-	.ngroups = ARRAY_SIZE(msm8916_groups),
+static const struct msm_pinctrl_soc_data msm8952_pinctrl = {
+	.pins = msm8952_pins,
+	.npins = ARRAY_SIZE(msm8952_pins),
+	.functions = msm8952_functions,
+	.nfunctions = ARRAY_SIZE(msm8952_functions),
+	.groups = msm8952_groups,
+	.ngroups = ARRAY_SIZE(msm8952_groups),
 	.ngpios = NUM_GPIO_PINGROUPS,
 };
 
-static int msm8916_pinctrl_probe(struct platform_device *pdev)
+static int msm8952_pinctrl_probe(struct platform_device *pdev)
 {
-	return msm_pinctrl_probe(pdev, &msm8916_pinctrl);
+	return msm_pinctrl_probe(pdev, &msm8952_pinctrl);
 }
 
-static const struct of_device_id msm8916_pinctrl_of_match[] = {
-	{ .compatible = "qcom,msm8916-pinctrl", },
+static const struct of_device_id msm8952_pinctrl_of_match[] = {
+	{ .compatible = "qcom,msm8952-pinctrl", },
 	{ },
 };
 
-static struct platform_driver msm8916_pinctrl_driver = {
+static struct platform_driver msm8952_pinctrl_driver = {
 	.driver = {
-		.name = "msm8916-pinctrl",
-		.of_match_table = msm8916_pinctrl_of_match,
+		.name = "msm8952-pinctrl",
+		.of_match_table = msm8952_pinctrl_of_match,
 	},
-	.probe = msm8916_pinctrl_probe,
+	.probe = msm8952_pinctrl_probe,
 };
 
-static int __init msm8916_pinctrl_init(void)
+static int __init msm8952_pinctrl_init(void)
 {
-	return platform_driver_register(&msm8916_pinctrl_driver);
+	return platform_driver_register(&msm8952_pinctrl_driver);
 }
-arch_initcall(msm8916_pinctrl_init);
+arch_initcall(msm8952_pinctrl_init);
 
-static void __exit msm8916_pinctrl_exit(void)
+static void __exit msm8952_pinctrl_exit(void)
 {
-	platform_driver_unregister(&msm8916_pinctrl_driver);
+	platform_driver_unregister(&msm8952_pinctrl_driver);
 }
-module_exit(msm8916_pinctrl_exit);
+module_exit(msm8952_pinctrl_exit);
 
-MODULE_DESCRIPTION("Qualcomm msm8916 pinctrl driver");
+MODULE_DESCRIPTION("Qualcomm msm8952 pinctrl driver");
 MODULE_LICENSE("GPL v2");
-MODULE_DEVICE_TABLE(of, msm8916_pinctrl_of_match);
+MODULE_DEVICE_TABLE(of, msm8952_pinctrl_of_match);
