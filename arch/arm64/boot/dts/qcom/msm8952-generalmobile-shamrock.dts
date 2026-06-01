@@ -53,7 +53,7 @@
 	status = "okay";
 };
 
-&blsp1_i2c4 {
+&blsp2_i2c4 {
 	status = "okay";
 };
 
@@ -91,12 +91,6 @@
 };
 
 &sdhc_2 {
-	pinctrl-0 = <&sdc2_default &sdc2_cd_default>;
-	pinctrl-1 = <&sdc2_sleep &sdc2_cd_default>;
-	pinctrl-names = "default", "sleep";
-
-	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
-
 	status = "okay";
 };
 
@@ -133,7 +127,7 @@
 	};
 
 	gpio_leds_default: gpio-leds-default-state {
-		pins = "gpio8", "gpio9", "gpio10";
+		pins = "gpio128";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-disable;
@@ -182,7 +176,7 @@
 	};
 
 	touchscreen_default: touchscreen-default-state {
-		pins = "gpio12", "gpio13";
+		pins = "gpio65", "gpio64";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-disable;

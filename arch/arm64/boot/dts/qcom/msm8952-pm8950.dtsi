@@ -60,7 +60,7 @@
 			regulator-max-microvolt = <1200000>;
 		};
 
-		/* pm8950_l3 is managed by rpmpd (MSM8939_VDDMX) */
+		/* pm8950_l3 is managed by rpmpd (RPMPD_VDDMX) */
 
 		l4 {};
 
@@ -151,20 +151,17 @@
 };
 
 &sdhc_1 {
-	bus-width = <8>;
-	non-removable;
 	vmmc-supply = <&pm8950_l8>;
 	vqmmc-supply = <&pm8950_l5>;
 };
 
 &sdhc_2 {
-	bus-width = <4>;
-	cd-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
+	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
 	vmmc-supply = <&pm8950_l11>;
 	vqmmc-supply = <&pm8950_l12>;
 
 	pinctrl-0 = <&sdc2_default>, <&sdc2_cd_default>;
-	pinctrl-1 = <&sdc2_sleep>, <&sdc2_cd_sleep>;
+	pinctrl-1 = <&sdc2_sleep>, <&sdc2_cd_default>;
 	pinctrl-names = "default", "sleep";
 };
 
