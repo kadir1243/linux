@@ -147,15 +147,16 @@ static const struct pinctrl_pin_desc msm8952_pins[] = {
 	PINCTRL_PIN(134, "SDC1_CLK"),
 	PINCTRL_PIN(135, "SDC1_CMD"),
 	PINCTRL_PIN(136, "SDC1_DATA"),
-	PINCTRL_PIN(137, "SDC2_CLK"),
-	PINCTRL_PIN(138, "SDC2_CMD"),
-	PINCTRL_PIN(139, "SDC2_DATA"),
-	PINCTRL_PIN(140, "QDSD_CLK"),
-	PINCTRL_PIN(141, "QDSD_CMD"),
-	PINCTRL_PIN(142, "QDSD_DATA0"),
-	PINCTRL_PIN(143, "QDSD_DATA1"),
-	PINCTRL_PIN(144, "QDSD_DATA2"),
-	PINCTRL_PIN(145, "QDSD_DATA3"),
+	PINCTRL_PIN(137, "SDC1_RCLK"),
+	PINCTRL_PIN(138, "SDC2_CLK"),
+	PINCTRL_PIN(139, "SDC2_CMD"),
+	PINCTRL_PIN(140, "SDC2_DATA"),
+	PINCTRL_PIN(141, "QDSD_CLK"),
+	PINCTRL_PIN(142, "QDSD_CMD"),
+	PINCTRL_PIN(143, "QDSD_DATA0"),
+	PINCTRL_PIN(144, "QDSD_DATA1"),
+	PINCTRL_PIN(145, "QDSD_DATA2"),
+	PINCTRL_PIN(146, "QDSD_DATA3"),
 };
 
 #define DECLARE_MSM_GPIO_PINS(pin)	\
@@ -299,17 +300,18 @@ DECLARE_MSM_GPIO_PINS(133);
 static const unsigned int sdc1_clk_pins[] = { 134 };
 static const unsigned int sdc1_cmd_pins[] = { 135 };
 static const unsigned int sdc1_data_pins[] = { 136 };
-static const unsigned int sdc2_clk_pins[] = { 137 };
-static const unsigned int sdc2_cmd_pins[] = { 138 };
-static const unsigned int sdc2_data_pins[] = { 139 };
-static const unsigned int qdsd_clk_pins[] = { 140 };
-static const unsigned int qdsd_cmd_pins[] = { 141 };
-static const unsigned int qdsd_data0_pins[] = { 142 };
-static const unsigned int qdsd_data1_pins[] = { 143 };
-static const unsigned int qdsd_data2_pins[] = { 144 };
-static const unsigned int qdsd_data3_pins[] = { 145 };
+static const unsigned int sdc1_rclk_pins[] = { 137 };
+static const unsigned int sdc2_clk_pins[] = { 138 };
+static const unsigned int sdc2_cmd_pins[] = { 139 };
+static const unsigned int sdc2_data_pins[] = { 140 };
+static const unsigned int qdsd_clk_pins[] = { 141 };
+static const unsigned int qdsd_cmd_pins[] = { 142 };
+static const unsigned int qdsd_data0_pins[] = { 143 };
+static const unsigned int qdsd_data1_pins[] = { 144 };
+static const unsigned int qdsd_data2_pins[] = { 145 };
+static const unsigned int qdsd_data3_pins[] = { 146 };
 
-#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9)	\
+#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12)	\
 	{							\
 		.grp = PINCTRL_PINGROUP("gpio" #id, 	\
 			gpio##id##_pins, 		\
@@ -324,9 +326,12 @@ static const unsigned int qdsd_data3_pins[] = { 145 };
 			msm_mux_##f6,				\
 			msm_mux_##f7,				\
 			msm_mux_##f8,				\
-			msm_mux_##f9				\
+			msm_mux_##f9,				\
+			msm_mux_##f10,				\
+			msm_mux_##f11,				\
+			msm_mux_##f12				\
 		},				        	\
-		.nfuncs = 10,					\
+		.nfuncs = 13,					\
 		.ctl_reg = 0x1000 * id,	        		\
 		.io_reg = 0x4 + 0x1000 * id,			\
 		.intr_cfg_reg = 0x8 + 0x1000 * id,		\
@@ -644,11 +649,11 @@ static const char * const pri_mi2s_groups[] = {
 };
 static const char * const pri_mi2s_ws_groups[] = { "gpio110" };
 static const char * const prng_rosc_groups[] = { "gpio43" };
-static const char * const pwr_crypto_enabled_a_groups[] = { "gpio35" };
+static const char * const pwr_crypto_enabled_a_groups[] = { "gpio36" };
 static const char * const pwr_crypto_enabled_b_groups[] = { "gpio115" };
 static const char * const pwr_modem_enabled_a_groups[] = { "gpio28" };
 static const char * const pwr_modem_enabled_b_groups[] = { "gpio113" };
-static const char * const pwr_nav_enabled_a_groups[] = { "gpio34" };
+static const char * const pwr_nav_enabled_a_groups[] = { "gpio35" };
 static const char * const pwr_nav_enabled_b_groups[] = { "gpio114" };
 static const char * const qdss_ctitrig_in_a0_groups[] = { "gpio20" };
 static const char * const qdss_ctitrig_in_a1_groups[] = { "gpio49" };
@@ -663,14 +668,14 @@ static const char * const qdss_traceclk_b_groups[] = { "gpio5" };
 static const char * const qdss_tracectl_a_groups[] = { "gpio45" };
 static const char * const qdss_tracectl_b_groups[] = { "gpio4" };
 static const char * const qdss_tracedata_a_groups[] = {
-	"gpio8", "gpio9", "gpio10", "gpio39", "gpio40", "gpio41", "gpio42",
-	"gpio43", "gpio47", "gpio48", "gpio62", "gpio69", "gpio112", "gpio113",
-	"gpio114", "gpio115"
+	"gpio16", "gpio18", "gpio19", "gpio26", "gpio27", "gpio28", "gpio29",
+	"gpio30", "gpio31", "gpio32", "gpio33", "gpio34", "gpio35", "gpio36",
+	"gpio37", "gpio38", "gpio39", "gpio40"
 };
 static const char * const qdss_tracedata_b_groups[] = {
-	"gpio26", "gpio27", "gpio28", "gpio29", "gpio30", "gpio31", "gpio32",
-	"gpio33", "gpio34", "gpio35", "gpio36", "gpio37", "gpio110", "gpio111",
-	"gpio120", "gpio121"
+	"gpio12", "gpio13", "gpio20", "gpio22", "gpio23", "gpio42", "gpio43",
+	"gpio44", "gpio45", "gpio46", "gpio47", "gpio66", "gpio86", "gpio87",
+	"gpio88", "gpio92"
 };
 static const char * const reset_n_groups[] = { "gpio36" };
 static const char * const sd_card_groups[] = { "gpio38" };
@@ -695,7 +700,7 @@ static const char * const uim_batt_groups[] = { "gpio61" };
 static const char * const wcss_bt_groups[] = { "gpio39", "gpio47", "gpio48" };
 static const char * const wcss_fm_groups[] = { "gpio45", "gpio46" };
 static const char * const wcss_wlan_groups[] = {
-	"gpio40", "gpio41", "gpio42", "gpio43", "gpio44"
+	"gpio76", "gpio77", "gpio78", "gpio79", "gpio80"
 };
 static const char * const webcam1_rst_groups[] = { "gpio28" };
 
@@ -831,143 +836,144 @@ static const struct pinfunction msm8952_functions[] = {
 };
 
 static const struct msm_pingroup msm8952_groups[] = {
-	PINGROUP(0, blsp_spi1, blsp_uart1, blsp_uim1, dmic0_clk, NA, NA, NA, NA, NA),
-	PINGROUP(1, blsp_spi1, blsp_uart1, blsp_uim1, dmic0_data, NA, NA, NA, NA, NA),
-	PINGROUP(2, blsp_spi1, blsp_uart1, blsp_i2c1, NA, NA, NA, NA, NA, NA),
-	PINGROUP(3, blsp_spi1, blsp_uart1, blsp_i2c1, NA, NA, NA, NA, NA, NA),
-	PINGROUP(4, blsp_spi2, blsp_uart2, blsp_uim2, blsp_spi1_cs3, qdss_tracectl_b, NA, atest_combodac, NA, NA),
-	PINGROUP(5, blsp_spi2, blsp_uart2, blsp_uim2, blsp_spi2_cs3, qdss_traceclk_b, NA, NA, NA, NA),
-	PINGROUP(6, blsp_spi2, blsp_uart2, blsp_i2c2, NA, NA, NA, NA, NA, NA),
-	PINGROUP(7, blsp_spi2, blsp_uart2, blsp_i2c2, NA, NA, NA, NA, NA, NA),
-	PINGROUP(8, blsp_spi3, m_voc, qdss_tracedata_a, NA, NA, NA, NA, NA, NA),
-	PINGROUP(9, blsp_spi3, qdss_tracedata_a, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(10, blsp_spi3, blsp_i2c3, qdss_tracedata_a, NA, NA, NA, NA, NA, NA),
-	PINGROUP(11, blsp_spi3, blsp_i2c3, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(12, blsp_spi4, gcc_gp2_clk_b, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(13, blsp_spi4, gcc_gp3_clk_b, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(14, blsp_spi4, blsp_i2c4, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(15, blsp_spi4, blsp_i2c4, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(16, blsp_spi5, blsp_spi1_cs2, NA, atest_bbrx1, NA, NA, NA, NA, NA),
-	PINGROUP(17, blsp_spi5, blsp_spi2_cs2, NA, atest_bbrx0, NA, NA, NA, NA, NA),
-	PINGROUP(18, blsp_spi5, blsp_i2c5, NA, atest_gpsadc1, NA, NA, NA, NA, NA),
-	PINGROUP(19, blsp_spi5, blsp_i2c5, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(20, blsp_spi6, NA, NA, NA, NA, NA, NA, qdss_ctitrig_in_a0, NA),
-	PINGROUP(21, blsp_spi6, NA, NA, NA, NA, NA, NA, qdss_ctitrig_in_b0, NA),
-	PINGROUP(22, blsp_spi6, blsp_i2c6, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(23, blsp_spi6, blsp_i2c6, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(24, mdp_vsync, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(25, mdp_vsync, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(26, cam_mclk0, NA, NA, NA, NA, NA, qdss_tracedata_b, NA, NA),
-	PINGROUP(27, cam_mclk1, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
-	PINGROUP(28, pwr_modem_enabled_a, NA, NA, NA, NA, NA, qdss_tracedata_b, NA, atest_combodac),
-	PINGROUP(29, cci_i2c, NA, NA, NA, NA, NA, qdss_tracedata_b, NA, atest_combodac),
-	PINGROUP(30, cci_i2c, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
-	PINGROUP(31, cci_timer0, flash_strobe, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(32, cci_timer1, flash_strobe, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(33, cci_async, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
-	PINGROUP(34, pwr_nav_enabled_a, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
-	PINGROUP(35, pwr_crypto_enabled_a, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
-	PINGROUP(36, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b, NA),
-	PINGROUP(37, blsp_spi3_cs2, NA, NA, NA, NA, NA, qdss_tracedata_b, NA, NA),
-	PINGROUP(38, cci_timer2, adsp_ext, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(39, wcss_bt, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(40, wcss_wlan, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(41, wcss_wlan, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(42, wcss_wlan, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(43, wcss_wlan, prng_rosc, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA),
-	PINGROUP(44, wcss_wlan, NA, atest_combodac, NA, NA, NA, NA, NA, NA),
-	PINGROUP(45, wcss_fm, ext_lpass, qdss_tracectl_a, NA, atest_combodac, NA, NA, NA, NA),
-	PINGROUP(46, wcss_fm, qdss_traceclk_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(47, wcss_bt, dbg_out, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA),
-	PINGROUP(48, wcss_bt, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(49, uim3, gcc_gp1_clk_a, qdss_ctitrig_in_a1, NA, NA, NA, NA, NA, NA),
-	PINGROUP(50, uim3, gcc_gp2_clk_a, qdss_ctitrig_in_b1, NA, NA, NA, NA, NA, NA),
-	PINGROUP(51, uim3, gcc_gp3_clk_a, qdss_ctitrig_out_b1, NA, NA, NA, NA, NA, NA),
-	PINGROUP(52, uim3, NA, qdss_ctitrig_out_a1, NA, NA, NA, NA, NA, NA),
-	PINGROUP(53, uim2, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(54, uim2, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(55, uim2, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(56, uim2, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(57, uim1, atest_char3, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(58, uim1, atest_char2, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(59, uim1, atest_char1, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(60, uim1, atest_char0, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(61, uim_batt, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(62, atest_char, qdss_tracedata_a, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(63, cdc_pdm0, bimc_dte0, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(64, cdc_pdm0, bimc_dte1, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(65, cdc_pdm0, bimc_dte0, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(66, cdc_pdm0, bimc_dte1, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(67, cdc_pdm0, ebi0_wrcdc, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(68, cdc_pdm0, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(69, blsp_spi3_cs3, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA, NA, NA),
-	PINGROUP(70, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(71, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(72, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(73, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(74, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(75, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(76, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(77, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(78, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(79, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(80, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(81, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(82, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(83, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(84, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(85, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(86, NA, pa_indicator, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(87, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(88, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(89, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(90, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(91, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(92, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(93, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(94, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(95, NA, modem_tsync, nav_tsync, nav_pps, NA, NA, NA, NA, NA),
-	PINGROUP(96, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(97, gcc_gp1_clk_b, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(98, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(99, gsm0_tx0, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(100, gsm0_tx1, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(101, gsm1_tx0, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(102, gsm1_tx1, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(103, ssbi_wtr0, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(104, ssbi_wtr0, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(105, ssbi_wtr1, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(106, ssbi_wtr1, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(107, pbs0, NA, atest_combodac, NA, NA, NA, NA, NA, NA),
-	PINGROUP(108, pbs1, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(109, pbs2, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(110, blsp_spi1_cs1, pri_mi2s_ws, NA, qdss_tracedata_b, NA, NA, NA, NA, NA),
-	PINGROUP(111, qdss_tracedata_b, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(112, sec_mi2s, NA, NA, NA, qdss_tracedata_a, NA, atest_tsens, NA, NA),
-	PINGROUP(113, pri_mi2s, NA, pwr_modem_enabled_b, NA, NA, NA, NA, NA, qdss_tracedata_a),
-	PINGROUP(114, pri_mi2s, pwr_nav_enabled_b, NA, NA, NA, NA, NA, qdss_tracedata_a, NA),
-	PINGROUP(115, pri_mi2s, pwr_crypto_enabled_b, NA, NA, NA, NA, NA, qdss_tracedata_a, NA),
-	PINGROUP(116, pri_mi2s, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(117, sec_mi2s, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(118, sec_mi2s, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(119, sec_mi2s, m_voc, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(120, blsp_spi3_cs1, ldo_update, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(121, sd_write, blsp_spi2_cs1, ldo_en, NA, NA, NA, NA, NA, NA),
-	PINGROUP(122, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(123, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(124, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(125, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(126, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(127, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(128, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(129, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(130, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(131, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(132, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-	PINGROUP(133, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(0, blsp_spi1, blsp_uart1, blsp_uim1, dmic0_clk, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(1, blsp_spi1, blsp_uart1, blsp_uim1, dmic0_data, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(2, blsp_spi1, blsp_uart1, blsp_i2c1, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(3, blsp_spi1, blsp_uart1, blsp_i2c1, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(4, blsp_spi2, blsp_uart2, blsp_uim2, blsp_spi1_cs3, qdss_tracectl_b, NA, atest_combodac, NA, NA, NA, NA, NA),
+	PINGROUP(5, blsp_spi2, blsp_uart2, blsp_uim2, blsp_spi2_cs3, qdss_traceclk_b, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(6, blsp_spi2, blsp_uart2, blsp_i2c2, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(7, blsp_spi2, blsp_uart2, blsp_i2c2, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(8, blsp_spi3, m_voc, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(9, blsp_spi3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(10, blsp_spi3, blsp_i2c3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(11, blsp_spi3, blsp_i2c3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(12, blsp_spi4, gcc_gp2_clk_b, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
+	PINGROUP(13, blsp_spi4, gcc_gp3_clk_b, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b),
+	PINGROUP(14, blsp_spi4, blsp_i2c4, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(15, blsp_spi4, blsp_i2c4, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(16, blsp_spi5, blsp_spi1_cs2, NA, atest_bbrx1, NA, NA, qdss_tracedata_a, NA, NA, NA, NA, NA),
+	PINGROUP(17, blsp_spi5, blsp_spi2_cs2, NA, atest_bbrx0, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(18, blsp_spi5, NA, blsp_i2c5, qdss_tracedata_a, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(19, blsp_spi5, NA, blsp_i2c5, qdss_tracedata_a, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(20, blsp_spi6, NA, NA, NA, NA, NA, NA, qdss_ctitrig_in_a0, qdss_tracedata_b, NA, NA, NA),
+	PINGROUP(21, blsp_spi6, NA, NA, NA, NA, NA, NA, qdss_ctitrig_in_b0, NA, NA, NA, NA),
+	PINGROUP(22, blsp_spi6, blsp_i2c6, NA, qdss_tracedata_b, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(23, blsp_spi6, blsp_i2c6, NA, qdss_tracedata_b, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(24, mdp_vsync, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(25, mdp_vsync, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(26, cam_mclk0, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA, NA, NA),
+	PINGROUP(27, cam_mclk1, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(28, pwr_modem_enabled_a, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, atest_combodac, NA, NA, NA),
+	PINGROUP(29, cci_i2c, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, atest_combodac, NA, NA, NA),
+	PINGROUP(30, cci_i2c, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(31, cci_timer0, flash_strobe, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(32, cci_timer1, flash_strobe, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(33, cci_async, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(34, NA, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(35, pwr_nav_enabled_a, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(36, pwr_crypto_enabled_a, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA),
+	PINGROUP(37, blsp_spi3_cs2, NA, NA, NA, NA, qdss_tracedata_a, NA, NA, NA, NA, NA, NA),
+	PINGROUP(38, cci_timer2, qdss_tracedata_a, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(39, wcss_bt, NA, NA, atest_combodac, NA, NA, qdss_tracedata_a, NA, NA, NA, NA, NA),
+	PINGROUP(40, NA, NA, NA, atest_combodac, qdss_tracedata_a, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(41, NA, NA, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(42, NA, qdss_tracedata_b, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(43, NA, qdss_tracedata_b, NA, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(44, NA, qdss_tracedata_b, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(45, wcss_fm, qdss_tracedata_b, qdss_tracectl_a, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(46, wcss_fm, qdss_tracedata_b, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(47, wcss_bt, dbg_out, qdss_tracedata_b, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(48, wcss_bt, NA, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(49, uim3, gcc_gp1_clk_a, qdss_ctitrig_in_a1, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(50, uim3, gcc_gp2_clk_a, qdss_ctitrig_in_b1, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(51, uim3, gcc_gp3_clk_a, qdss_ctitrig_out_b1, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(52, uim3, NA, qdss_ctitrig_out_a1, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(53, uim2, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(54, uim2, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(55, uim2, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(56, uim2, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(57, uim1, atest_char3, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(58, uim1, atest_char2, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(59, uim1, atest_char1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(60, uim1, atest_char0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(61, uim_batt, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(62, atest_char, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(63, cdc_pdm0, bimc_dte0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(64, cdc_pdm0, bimc_dte1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(65, cdc_pdm0, bimc_dte0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(66, cdc_pdm0, bimc_dte1, NA, qdss_tracedata_b, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(67, cdc_pdm0, ebi0_wrcdc, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(68, cdc_pdm0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(69, blsp_spi3_cs3, NA, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(70, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(71, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(72, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(73, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(74, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(75, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(76, wcss_wlan, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(77, wcss_wlan, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(78, wcss_wlan, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(79, wcss_wlan, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(80, wcss_wlan, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(81, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(82, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(83, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(84, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(85, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(86, qdss_tracedata_b, pa_indicator, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(87, qdss_tracedata_b, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(88, NA, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b, NA, NA, NA),
+	PINGROUP(89, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(90, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(91, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(92, NA, NA, NA, NA, NA, NA, NA, NA, qdss_tracedata_b, NA, NA, NA),
+	PINGROUP(93, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(94, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(95, NA, modem_tsync, nav_tsync, nav_pps, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(96, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(97, gcc_gp1_clk_b, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(98, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(99, gsm0_tx0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(100, gsm0_tx1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(101, gsm1_tx0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(102, gsm1_tx1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(103, ssbi_wtr0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(104, ssbi_wtr0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(105, ssbi_wtr1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(106, ssbi_wtr1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(107, pbs0, NA, atest_combodac, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(108, pbs1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(109, pbs2, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(110, blsp_spi1_cs1, pri_mi2s_ws, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(111, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(112, sec_mi2s, NA, NA, NA, NA, NA, atest_tsens, NA, NA, NA, NA, NA),
+	PINGROUP(113, pri_mi2s, NA, pwr_modem_enabled_b, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(114, pri_mi2s, pwr_nav_enabled_b, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(115, pri_mi2s, pwr_crypto_enabled_b, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(116, pri_mi2s, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(117, sec_mi2s, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(118, sec_mi2s, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(119, sec_mi2s, m_voc, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(120, blsp_spi3_cs1, ldo_update, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(121, sd_write, blsp_spi2_cs1, ldo_en, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(122, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(123, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(124, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(125, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(126, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(127, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(128, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(129, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(130, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(131, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(132, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+	PINGROUP(133, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 	SDC_PINGROUP(sdc1_clk, 0x10a000, 13, 6),
 	SDC_PINGROUP(sdc1_cmd, 0x10a000, 11, 3),
 	SDC_PINGROUP(sdc1_data, 0x10a000, 9, 0),
+	SDC_PINGROUP(sdc1_rclk, 0x10a000, 15, 0),
 	SDC_PINGROUP(sdc2_clk, 0x109000, 14, 6),
 	SDC_PINGROUP(sdc2_cmd, 0x109000, 11, 3),
 	SDC_PINGROUP(sdc2_data, 0x109000, 9, 0),
