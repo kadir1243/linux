@@ -8,13 +8,10 @@
 
 #define GPLL0					0
 #define GPLL0_VOTE				1
-#define BIMC_PLL				2
-#define BIMC_PLL_VOTE				3
 #define GPLL2					6
 #define GPLL2_VOTE				7
-#define PCNOC_BFDCD_CLK_SRC			8
-#define SYSTEM_NOC_BFDCD_CLK_SRC		9
-#define CAMSS_AHB_CLK_SRC			10
+#define GPLL3_EARLY				6
+#define CAMSS_TOP_AHB_CLK_SRC			10
 #define APSS_AHB_CLK_SRC			11
 #define CSI0_CLK_SRC				12
 #define CSI1_CLK_SRC				13
@@ -141,10 +138,8 @@
 #define GCC_VENUS0_AHB_CLK			135
 #define GCC_VENUS0_AXI_CLK			136
 #define GCC_VENUS0_VCODEC0_CLK			137
-#define BIMC_DDR_CLK_SRC			138
 #define GCC_APSS_TCU_CLK			139
 #define GCC_GFX_TCU_CLK				140
-#define BIMC_GPU_CLK_SRC			141
 #define GCC_BIMC_GFX_CLK			142
 #define GCC_BIMC_GPU_CLK			143
 #define GCC_MSS_Q6_BIMC_AXI_CLK			160
@@ -171,7 +166,7 @@
 #define GCC_VENUS0_CORE0_VCODEC0_CLK		183
 #define GCC_VENUS0_CORE1_VCODEC0_CLK		184
 #define GCC_OXILI_TIMER_CLK			185
-#define SYSTEM_MM_NOC_BFDCD_CLK_SRC		186
+#define GCC_USB_HS_PHY_CFG_AHB_CLK		185
 #define CSI2_CLK_SRC				187
 #define GCC_CAMSS_CSI2_AHB_CLK			188
 #define GCC_CAMSS_CSI2_CLK			189

@@ -1549,6 +1549,12 @@
 			};
 		};
 
+		a53pll_cci: clock@b1d0000 {
+			compatible = "qcom,msm8939-a53pll";
+			reg = <0x0b1d0000 0x40>;
+			#clock-cells = <0>;
+		};
+
 		timer@b120000 {
 			compatible = "arm,armv7-timer-mem";
 			reg = <0x0b120000 0x1000>;
