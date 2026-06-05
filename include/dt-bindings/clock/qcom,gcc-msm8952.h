@@ -144,7 +144,6 @@
 #define GCC_BIMC_GPU_CLK			143
 #define GCC_MSS_Q6_BIMC_AXI_CLK			160
 #define GPLL3					161
-#define GPLL3_VOTE				162
 #define GPLL4					163
 #define GPLL4_VOTE				164
 #define GPLL6					167
