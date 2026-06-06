@@ -12,6 +12,15 @@
 #include "pm8950.dtsi"
 #include <dt-bindings/gpio/gpio.h>
 
+/ {
+	vph_pwr: regulator-vph-pwr {
+		compatible = "regulator-fixed";
+		regulator-name = "vph-pwr";
+		regulator-always-on;
+		regulator-boot-on;
+	};
+};
+
 &mdss_dsi0 {
 	vdda-supply = <&pm8950_l2>;
 	vddio-supply = <&pm8950_l6>;
@@ -19,6 +28,18 @@
 
 &mdss_dsi0_phy {
 	vddio-supply = <&pm8950_l6>;
+};
+
+&pm8950_spmi_regulators {
+	vdd_s5-supply = <&vph_pwr>;
+
+	pm8950_s5: s5 {
+		regulator-min-microvolt = <1050000>;
+		regulator-max-microvolt = <1350000>;
+		regulator-name = "vdd_apc0";
+		regulator-always-on;
+		regulator-boot-on;
+	};
 };
 
 &rpm_requests {
@@ -39,8 +60,8 @@
 			regulator-always-on; /* Needed for L2 */
 		};
 		pm8950_s4: s4 {
-			regulator-min-microvolt = <1850000>;
-			regulator-max-microvolt = <2150000>;
+			regulator-min-microvolt = <2050000>;
+			regulator-max-microvolt = <2050000>;
 			regulator-always-on; /* Needed for L5/L7 */
 		};
 
@@ -159,10 +180,6 @@
 	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
 	vmmc-supply = <&pm8950_l11>;
 	vqmmc-supply = <&pm8950_l12>;
-
-	pinctrl-0 = <&sdc2_default>, <&sdc2_cd_default>;
-	pinctrl-1 = <&sdc2_sleep>, <&sdc2_cd_default>;
-	pinctrl-names = "default", "sleep";
 };
 
 &usb_hs_phy {

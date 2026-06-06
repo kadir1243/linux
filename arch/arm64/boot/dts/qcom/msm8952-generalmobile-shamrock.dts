@@ -32,14 +32,16 @@
 
 		button-volume-up {
 			label = "Volume Up";
-			gpios = <&tlmm 55 GPIO_ACTIVE_LOW>;
+			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
 			linux,code = <KEY_VOLUMEUP>;
+			debounce-interval = <15>;
+			wakeup-source;
 		};
 	};
 
 	usb_id: usb-id {
 		compatible = "linux,extcon-usb-gpio";
-		id-gpios = <&tlmm 110 GPIO_ACTIVE_HIGH>;
+		id-gpios = <&tlmm 45 GPIO_ACTIVE_HIGH>;
 		pinctrl-0 = <&usb_id_default>;
 		pinctrl-names = "default";
 	};
@@ -50,10 +52,6 @@
 };
 
 &blsp1_i2c3 {
-	status = "okay";
-};
-
-&blsp2_i2c4 {
 	status = "okay";
 };
 
@@ -70,9 +68,9 @@
 };
 
 &mdss_dsi0 {
-	pinctrl-0 = <&mdss_default>;
-	pinctrl-1 = <&mdss_sleep>;
 	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&mdss_active>;
+	pinctrl-1 = <&mdss_sleep>;
 	status = "okay";
 };
 
@@ -104,23 +102,25 @@
 	status = "okay";
 };
 
-&tlmm {
-	accel_int_default: accel-int-default-state {
-		pins = "gpio115";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
+&sdc2_cd_on {
+	/delete-property/ bias-pull-up;
+	bias-disable;
+};
 
+&sdc1_clk_on {
+	drive-strength = <10>;
+};
+
+&tlmm {
 	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
-		pins = "gpio69";
+		pins = "gpio46";
 		function = "gpio";
 		drive-strength = <2>;
-		bias-disable;
+		bias-pull-up;
 	};
 
 	gpio_keys_default: gpio-keys-default-state {
-		pins = "gpio107";
+		pins = "gpio85";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-pull-up;
@@ -130,46 +130,25 @@
 		pins = "gpio128";
 		function = "gpio";
 		drive-strength = <2>;
-		bias-disable;
+		output-high;
 	};
 
-	mag_reset_default: mag-reset-default-state {
-		pins = "gpio36";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
-
-	mdss_default: mdss-default-state {
-		pins = "gpio25";
+	mdss_active: mdss-default-state {
+		pins = "gpio0";
 		function = "gpio";
 		drive-strength = <8>;
 		bias-disable;
 	};
 
 	mdss_sleep: mdss-sleep-state {
-		pins = "gpio25";
+		pins = "gpio0";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-pull-down;
 	};
 
-	prox_irq_default: prox-irq-default-state {
-		pins = "gpio113";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
-
 	reg_lcd_en_default: reg-lcd-en-default-state {
 		pins = "gpio32", "gpio97";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
-
-	sdc2_cd_default: sdc2-cd-default-state {
-		pins = "gpio38";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-disable;
@@ -183,9 +162,10 @@
 	};
 
 	usb_id_default: usb-id-default-state {
-		pins = "gpio110";
+		pins = "gpio45";
 		function = "gpio";
 		drive-strength = <8>;
 		bias-pull-up;
 	};
 };
+

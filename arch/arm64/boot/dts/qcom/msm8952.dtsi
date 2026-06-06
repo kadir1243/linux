@@ -307,16 +307,16 @@
 			opp-hz = /bits/ 64 <1344000000>;
 		};
 
-		opp-1401600000 {
-			opp-hz = /bits/ 64 <1401600000>;
-		};
-
 		opp-1440000000 {
 			opp-hz = /bits/ 64 <1440000000>;
 		};
 
 		opp-1516800000 {
 			opp-hz = /bits/ 64 <1516800000>;
+		};
+
+		opp-1651200000 {
+			opp-hz = /bits/ 64 <1651200000>;
 		};
 	};
 
@@ -807,6 +807,32 @@
 				bias-disable;
 			};
 
+
+			blsp1_uart1_console_default: blsp-uart1-console-default-state {
+				tx-pins {
+					pins = "gpio0";
+					function = "blsp_uart1";
+					drive-strength = <16>;
+					bias-disable;
+					bootph-all;
+				};
+
+				rx-pins {
+					pins = "gpio1";
+					function = "blsp_uart1";
+					drive-strength = <16>;
+					bias-pull-up;
+					bootph-all;
+				};
+			};
+
+			blsp1_uart1_console_sleep: blsp-uart1-console-sleep-state {
+				pins = "gpio0", "gpio1";
+				function = "gpio";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+
 			blsp1_uart2_default: blsp1-uart2-default-state {
 				pins = "gpio4", "gpio5";
 				function = "blsp_uart2";
@@ -821,85 +847,102 @@
 				bias-pull-down;
 			};
 
-			sdc1_default: sdc1-default-state {
-				clk-pins {
-					pins = "sdc1_clk";
-					drive-strength = <16>;
-					bias-disable;
-				};
-
-				cmd-pins {
-					pins = "sdc1_cmd";
-					drive-strength = <10>;
-					bias-pull-up;
-				};
-
-				data-pins {
-					pins = "sdc1_data";
-					drive-strength = <10>;
-					bias-pull-up;
-				};
+			sdc1_clk_on: sdc1-clk-on-state {
+				pins = "sdc1_clk";
+				bias-disable;
+				drive-strength = <16>;
 			};
 
-			sdc1_sleep: sdc1-sleep-state {
-				clk-pins {
-					pins = "sdc1_clk";
-					drive-strength = <2>;
-					bias-disable;
-				};
-
-				cmd-pins {
-					pins = "sdc1_cmd";
-					drive-strength = <2>;
-					bias-pull-up;
-				};
-
-				data-pins {
-					pins = "sdc1_data";
-					drive-strength = <2>;
-					bias-pull-up;
-				};
+			sdc1_clk_off: sdc1-clk-off-state {
+				pins = "sdc1_clk";
+				bias-disable;
+				drive-strength = <2>;
 			};
 
-			sdc2_default: sdc2-default-state {
-				clk-pins {
-					pins = "sdc2_clk";
-					drive-strength = <16>;
-					bias-disable;
-				};
-
-				sdc2_cmd_default: cmd-pins {
-					pins = "sdc2_cmd";
-					drive-strength = <10>;
-					bias-pull-up;
-				};
-
-				sdc2_data_default: data-pins {
-					pins = "sdc2_data";
-					drive-strength = <10>;
-					bias-pull-up;
-				};
+			sdc1_cmd_on: sdc1-cmd-on-state {
+				pins = "sdc1_cmd";
+				bias-disable;
+				drive-strength = <10>;
 			};
 
-			sdc2_sleep: sdc2-sleep-state {
-				clk-pins {
-					pins = "sdc2_clk";
-					drive-strength = <2>;
-					bias-disable;
-				};
-
-				cmd-pins {
-					pins = "sdc2_cmd";
-					drive-strength = <2>;
-					bias-pull-up;
-				};
-
-				data-pins {
-					pins = "sdc2_data";
-					drive-strength = <2>;
-					bias-pull-up;
-				};
+			sdc1_cmd_off: sdc1-cmd-off-state {
+				pins = "sdc1_cmd";
+				bias-disable;
+				drive-strength = <2>;
 			};
+
+			sdc1_data_on: sdc1-data-on-state {
+				pins = "sdc1_data";
+				bias-pull-up;
+				drive-strength = <10>;
+			};
+
+			sdc1_data_off: sdc1-data-off-state {
+				pins = "sdc1_data";
+				bias-pull-up;
+				drive-strength = <2>;
+			};
+
+			sdc1_rclk_on: sdc1-rclk-on-state {
+				pins = "sdc1_rclk";
+				bias-pull-down;
+			};
+
+			sdc1_rclk_off: sdc1-rclk-off-state {
+				pins = "sdc1_rclk";
+				bias-pull-down;
+			};
+
+			sdc2_clk_on: sdc2-clk-on-state {
+				pins = "sdc2_clk";
+				drive-strength = <16>;
+				bias-disable;
+			};
+
+			sdc2_clk_off: sdc2-clk-off-state {
+				pins = "sdc2_clk";
+				bias-disable;
+				drive-strength = <2>;
+			};
+
+			sdc2_cmd_on: sdc2-cmd-on-state {
+				pins = "sdc2_cmd";
+				bias-pull-up;
+				drive-strength = <10>;
+			};
+
+			sdc2_cmd_off: sdc2-cmd-off-state {
+				pins = "sdc2_cmd";
+				bias-pull-up;
+				drive-strength = <2>;
+			};
+
+			sdc2_data_on: sdc2-data-on-state {
+				pins = "sdc2_data";
+				bias-pull-up;
+				drive-strength = <10>;
+			};
+
+			sdc2_data_off: sdc2-data-off-state {
+				pins = "sdc2_data";
+				bias-pull-up;
+				drive-strength = <2>;
+			};
+
+			sdc2_cd_on: cd-on-state {
+				pins = "gpio67";
+				function = "gpio";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+
+			sdc2_cd_off: cd-off-state {
+				pins = "gpio67";
+				function = "gpio";
+				drive-strength = <2>;
+				bias-disable;
+			};
+
 		};
 
 		gcc: clock-controller@1800000 {
@@ -1242,15 +1285,20 @@
 
 			interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>,
 					 <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
-			interrupt-names = "hc_irq",
-					  "pwr_irq";
+			interrupt-names = "hc_irq", "pwr_irq";
+
 			clocks = <&gcc GCC_SDCC1_AHB_CLK>,
 				 <&gcc GCC_SDCC1_APPS_CLK>,
 				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
-			clock-names = "iface",
-					  "core",
-					  "xo";
+			clock-names = "iface", "core", "xo";
 
+			pinctrl-names = "default", "sleep";
+			pinctrl-0 = <&sdc1_clk_on &sdc1_cmd_on &sdc1_data_on &sdc1_rclk_on>;
+			pinctrl-1 = <&sdc1_clk_off &sdc1_cmd_off &sdc1_data_off &sdc1_rclk_off>;
+
+			mmc-hs400-1_8v;
+			mmc-hs200-1_8v;
+			mmc-ddr-1_8v;
 			bus-width = <8>;
 			non-removable;
 
@@ -1270,6 +1318,10 @@
 					 <&gcc GCC_SDCC2_APPS_CLK>,
 					 <&rpmcc RPM_SMD_XO_CLK_SRC>;
 			clock-names = "iface", "core", "xo";
+
+			pinctrl-names = "default", "sleep";
+			pinctrl-0 = <&sdc2_clk_on &sdc2_cmd_on &sdc2_data_on &sdc2_cd_on>;
+			pinctrl-1 = <&sdc2_clk_off &sdc2_cmd_off &sdc2_data_off &sdc2_cd_off>;
 
 			bus-width = <4>;
 
@@ -1295,6 +1347,9 @@
 			clock-names = "core", "iface";
 			dmas = <&blsp1_dma 0>, <&blsp1_dma 1>;
 			dma-names = "tx", "rx";
+			pinctrl-0 = <&blsp1_uart1_console_default>;
+			pinctrl-1 = <&blsp1_uart1_console_sleep>;
+			pinctrl-names = "default", "sleep";
 			status = "disabled";
 		};
 
@@ -1322,7 +1377,7 @@
 			dmas = <&blsp1_dma 6>, <&blsp1_dma 7>;
 			dma-names = "tx", "rx";
 			pinctrl-0 = <&blsp1_i2c2_default>;
-			pinctrl-1 = <&blsp1_i2c2_default>;
+			pinctrl-1 = <&blsp1_i2c2_sleep>;
 			pinctrl-names = "default", "sleep";
 			#address-cells = <1>;
 			#size-cells = <0>;
@@ -1371,7 +1426,7 @@
 				 <&gcc GCC_BLSP2_AHB_CLK>;
 			clock-names = "core", "iface";
 			clock-frequency = <400000>;
-			dmas = <&blsp1_dma 10>, <&blsp1_dma 11>;
+			dmas = <&blsp2_dma 10>, <&blsp2_dma 11>;
 			dma-names = "tx", "rx";
 			pinctrl-0 = <&blsp2_i2c4_default>;
 			pinctrl-1 = <&blsp2_i2c4_sleep>;
@@ -1535,10 +1590,6 @@
 					opp-hz = /bits/ 64 <1344000000>;
 				};
 
-				opp-1401600000 {
-					opp-hz = /bits/ 64 <1401600000>;
-				};
-
 				opp-1440000000 {
 					opp-hz = /bits/ 64 <1440000000>;
 				};
@@ -1546,12 +1597,18 @@
 				opp-1516800000 {
 					opp-hz = /bits/ 64 <1516800000>;
 				};
+
+				opp-1651200000 {
+					opp-hz = /bits/ 64 <1651200000>;
+				};
 			};
 		};
 
 		a53pll_cci: clock@b1d0000 {
 			compatible = "qcom,msm8939-a53pll";
 			reg = <0x0b1d0000 0x40>;
+			clocks = <&xo_board>;
+			clock-names = "xo";
 			#clock-cells = <0>;
 		};
 
