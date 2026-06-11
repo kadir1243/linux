@@ -1,0 +1,171 @@
+// SPDX-License-Identifier: GPL-2.0-only
+
+/dts-v1/;
+
+#include "msm8952-pm8950.dtsi"
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/leds/common.h>
+
+/ {
+	model = "General Mobile GM 5 Plus (shamrock)";
+	compatible = "generalmobile,shamrock", "qcom,msm8952";
+	qcom,board-id = <QCOM_BOARD_ID_QRD 1>;
+	chassis-type = "handset";
+
+	aliases {
+		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
+		mmc1 = &sdhc_2; /* SDC2 SD card slot */
+		serial0 = &blsp1_uart2;
+	};
+
+	chosen {
+		stdout-path = "serial0";
+	};
+
+	gpio-keys {
+		compatible = "gpio-keys";
+
+		pinctrl-0 = <&gpio_keys_default>;
+		pinctrl-names = "default";
+
+		label = "GPIO Buttons";
+
+		button-volume-up {
+			label = "Volume Up";
+			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
+			linux,code = <KEY_VOLUMEUP>;
+			debounce-interval = <15>;
+			wakeup-source;
+		};
+	};
+
+	usb_id: usb-id {
+		compatible = "linux,extcon-usb-gpio";
+		id-gpios = <&tlmm 45 GPIO_ACTIVE_HIGH>;
+		pinctrl-0 = <&usb_id_default>;
+		pinctrl-names = "default";
+	};
+};
+
+&blsp2_i2c1 {
+	status = "okay";
+};
+
+&blsp1_i2c3 {
+	status = "okay";
+};
+
+&blsp1_uart2 {
+	status = "okay";
+};
+
+&gpu {
+	status = "okay";
+};
+
+&mdss {
+	status = "okay";
+};
+
+&mdss_dsi0 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&mdss_active>;
+	pinctrl-1 = <&mdss_sleep>;
+	status = "okay";
+};
+
+&mdss_dsi0_phy {
+	qcom,dsi-phy-regulator-ldo-mode;
+	status = "okay";
+};
+
+&pm8950_resin {
+	linux,code = <KEY_VOLUMEDOWN>;
+	status = "okay";
+};
+
+&sdhc_1 {
+	status = "okay";
+};
+
+&sdhc_2 {
+	status = "okay";
+};
+
+&usb {
+	extcon = <&usb_id>, <&usb_id>;
+	dr_mode = "peripheral";
+	status = "okay";
+};
+
+&usb_hs_phy {
+	status = "okay";
+};
+
+&sdc2_cd_on {
+	/delete-property/ bias-pull-up;
+	bias-disable;
+};
+
+&sdc1_clk_on {
+	drive-strength = <10>;
+};
+
+&tlmm {
+	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
+		pins = "gpio46";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-up;
+	};
+
+	gpio_keys_default: gpio-keys-default-state {
+		pins = "gpio85";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-up;
+	};
+
+	gpio_leds_default: gpio-leds-default-state {
+		pins = "gpio128";
+		function = "gpio";
+		drive-strength = <2>;
+		output-high;
+	};
+
+	mdss_active: mdss-default-state {
+		pins = "gpio0";
+		function = "gpio";
+		drive-strength = <8>;
+		bias-disable;
+	};
+
+	mdss_sleep: mdss-sleep-state {
+		pins = "gpio0";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-down;
+	};
+
+	reg_lcd_en_default: reg-lcd-en-default-state {
+		pins = "gpio32", "gpio97";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	touchscreen_default: touchscreen-default-state {
+		pins = "gpio65", "gpio64";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	usb_id_default: usb-id-default-state {
+		pins = "gpio45";
+		function = "gpio";
+		drive-strength = <8>;
+		bias-pull-up;
+	};
+};
+

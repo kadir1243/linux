@@ -62,6 +62,15 @@ config INTERCONNECT_QCOM_MSM8939
 	  This is a driver for the Qualcomm Network-on-Chip on msm8939-based
 	  platforms.
 
+config INTERCONNECT_QCOM_MSM8952
+	tristate "Qualcomm MSM8952 interconnect driver"
+	depends on INTERCONNECT_QCOM
+	depends on QCOM_SMD_RPM
+	select INTERCONNECT_QCOM_SMD_RPM
+	help
+	  This is a driver for the Qualcomm Network-on-Chip on msm8952-based
+	  platforms.
+
 config INTERCONNECT_QCOM_MSM8953
 	tristate "Qualcomm MSM8953 interconnect driver"
 	depends on INTERCONNECT_QCOM
