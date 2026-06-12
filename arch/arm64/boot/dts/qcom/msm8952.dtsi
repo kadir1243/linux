@@ -233,9 +233,11 @@
 			no-map;
 		};
 
-		rmtfs@92100000 {
+		rmtfs_mem: rmtfs {
 			compatible = "qcom,rmtfs-mem";
-			reg = <0x0 0x92100000 0x0 0x180000>;
+
+			size = <0x0 0x200000>;
+			alloc-ranges = <0x0 0xa0000000 0x0 0x2000000>;
 			no-map;
 
 			qcom,client-id = <1>;
@@ -246,6 +248,22 @@
 			alignment = <0x0 0x100000>;
 			alloc-ranges = <0x0 0x86800000 0x0 0x8000000>;
 			no-map;
+			status = "disabled";
+		};
+
+		cont_splash_mem: cont-splash@83000000 {
+			reg = <0x0 0x83000000 0x0 0x1400000>;
+			no-map;
+		};
+
+		ramoops_mem: ramoops@0xdffc0000 {
+			compatible = "ramoops";
+			reg = <0x0 0xdffc0000 0x0 0x40000>;
+
+			record-size = <0x1000>;
+			console-size = <0x1000>;
+			ftrace-size = <0x1000>;
+			pmsg-size = <0x1000>;
 			status = "disabled";
 		};
 
@@ -266,7 +284,7 @@
 		};
 
 		venus_mem: venus {
-			size = <0x0 0x400000>;
+			size = <0x0 0x500000>;
 			alignment = <0x0 0x100000>;
 			alloc-ranges = <0x0 0x86800000 0x0 0x8000000>;
 			no-map;
@@ -817,7 +835,7 @@
 
 		tcsr_mutex: hwlock@1905000 {
 			compatible = "qcom,tcsr-mutex";
-			reg = <0x01905000 0x20000>;
+			reg = <0x01905000 0x8000>;
 			#hwlock-cells = <1>;
 		};
 
