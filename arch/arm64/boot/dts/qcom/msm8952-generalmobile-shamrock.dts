@@ -63,21 +63,21 @@
 	status = "okay";
 };
 
-&mdss {
-	status = "okay";
-};
-
-&mdss_dsi0 {
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&mdss_active>;
-	pinctrl-1 = <&mdss_sleep>;
-	status = "okay";
-};
-
-&mdss_dsi0_phy {
-	qcom,dsi-phy-regulator-ldo-mode;
-	status = "okay";
-};
+//&mdss {
+//	status = "okay";
+//};
+//
+//&mdss_dsi0 {
+//	pinctrl-names = "default", "sleep";
+//	pinctrl-0 = <&mdss_active>;
+//	pinctrl-1 = <&mdss_sleep>;
+//	status = "okay";
+//};
+//
+//&mdss_dsi0_phy {
+//	qcom,dsi-phy-regulator-ldo-mode;
+//	status = "okay";
+//};
 
 &pm8950_resin {
 	linux,code = <KEY_VOLUMEDOWN>;
@@ -99,7 +99,7 @@
 };
 
 &usb_hs_phy {
-	status = "okay";
+	extcon = <&usb_id>;
 };
 
 &sdc2_cd_on {
