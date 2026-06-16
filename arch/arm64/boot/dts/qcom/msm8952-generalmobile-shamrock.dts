@@ -15,12 +15,35 @@
 	aliases {
 		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
 		mmc1 = &sdhc_2; /* SDC2 SD card slot */
-//		serial0 = &blsp1_uart2;
+		serial0 = &blsp1_uart2;
 	};
 
-//	chosen {
-//		stdout-path = "serial0";
-//	};
+	chosen {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		stdout-path = "framebuffer0";
+
+		framebuffer0: framebuffer@83200000 {
+			compatible = "simple-framebuffer";
+			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
+			width = <1080>;
+			height = <1920>;
+			stride = <(1080 * 3)>;
+			format = "r8g8b8";
+
+			power-domains = <&gcc MDSS_GDSC>;
+
+			clocks = <&gcc GCC_MDSS_AHB_CLK>,
+			         <&gcc GCC_MDSS_AXI_CLK>,
+			         <&gcc GCC_MDSS_VSYNC_CLK>,
+			         <&gcc GCC_MDSS_MDP_CLK>,
+			         <&gcc GCC_MDSS_BYTE0_CLK>,
+			         <&gcc GCC_MDSS_PCLK0_CLK>,
+			         <&gcc GCC_MDSS_ESC0_CLK>;
+		};
+	};
 
 	gpio-keys {
 		compatible = "gpio-keys";
@@ -47,41 +70,37 @@
 	};
 };
 
-&ramoops_mem {
+&blsp2_i2c1 {
 	status = "okay";
 };
 
-//&blsp2_i2c1 {
-//	status = "okay";
-//};
-//
-//&blsp1_i2c3 {
-//	status = "okay";
-//};
-//
-//&blsp1_uart2 {
-//	status = "okay";
-//};
-//
-//&gpu {
-//	status = "okay";
-//};
+&blsp1_i2c3 {
+	status = "okay";
+};
 
-//&mdss {
-//	status = "okay";
-//};
-//
-//&mdss_dsi0 {
-//	pinctrl-names = "default", "sleep";
-//	pinctrl-0 = <&mdss_active>;
-//	pinctrl-1 = <&mdss_sleep>;
-//	status = "okay";
-//};
-//
-//&mdss_dsi0_phy {
-//	qcom,dsi-phy-regulator-ldo-mode;
-//	status = "okay";
-//};
+&blsp1_uart2 {
+	status = "okay";
+};
+
+&gpu {
+	status = "okay";
+};
+
+&mdss {
+	status = "okay";
+};
+
+&mdss_dsi0 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&mdss_dsi_default &mdss_te_default>;
+	pinctrl-1 = <&mdss_dsi_sleep &mdss_te_sleep>;
+	status = "okay";
+};
+
+&mdss_dsi0_phy {
+	qcom,dsi-phy-regulator-ldo-mode;
+	status = "okay";
+};
 
 &pm8950_resin {
 	linux,code = <KEY_VOLUMEDOWN>;
@@ -137,16 +156,30 @@
 		output-high;
 	};
 
-	mdss_active: mdss-default-state {
+	mdss_dsi_default: mdss-default-state {
 		pins = "gpio0";
 		function = "gpio";
 		drive-strength = <8>;
 		bias-disable;
 	};
 
-	mdss_sleep: mdss-sleep-state {
+	mdss_dsi_sleep: mdss-sleep-state {
 		pins = "gpio0";
 		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-down;
+	};
+
+	mdss_te_default: mdss-te-default-state {
+		pins = "gpio24";
+		function = "mdp_vsync";
+		drive-strength = <2>;
+		bias-pull-down;
+	};
+
+	mdss_te_sleep: mdss-te-sleep-state {
+		pins = "gpio24";
+		function = "mdp_vsync";
 		drive-strength = <2>;
 		bias-pull-down;
 	};
