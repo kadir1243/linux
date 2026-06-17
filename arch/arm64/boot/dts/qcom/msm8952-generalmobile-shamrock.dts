@@ -115,15 +115,15 @@
 	status = "okay";
 };
 
-&usb {
-	extcon = <&usb_id>, <&usb_id>;
-	dr_mode = "peripheral";
-	status = "okay";
-};
-
-&usb_hs_phy {
-	extcon = <&usb_id>;
-};
+//&usb {
+//	extcon = <&usb_id>, <&usb_id>;
+//	dr_mode = "peripheral";
+//	status = "okay";
+//};
+//
+//&usb_hs_phy {
+//	status = "okay";
+//};
 
 &sdc2_cd_on {
 	/delete-property/ bias-pull-up;

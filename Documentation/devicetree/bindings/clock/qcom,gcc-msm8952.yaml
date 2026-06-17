@@ -26,7 +26,7 @@ properties:
   clocks:
     items:
       - description: XO source
-      - description: Sleep clock source
+      - description: Always-on XO source
       - description: DSI phy instance 0 dsi clock
       - description: DSI phy instance 0 byte clock
       - description: External MCLK clock
@@ -36,7 +36,7 @@ properties:
   clock-names:
     items:
       - const: xo
-      - const: sleep_clk
+      - const: xo_a
       - const: dsi0pll
       - const: dsi0pllbyte
       - const: ext_mclk
