@@ -1363,7 +1363,7 @@
 					 <&gcc GCC_USB2A_PHY_SLEEP_CLK>;
 			clock-names = "ref", "ahb", "sleep";
 			resets = <&gcc RST_QUSB2_PHY_BCR>,
-					 <&gcc RST_USB2_HS_PHY_ONLY_CBCR>;
+					 <&gcc RST_USB2_HS_PHY_ONLY_BCR>;
 			reset-names = "phy", "por";
 			status = "disabled";
 		};

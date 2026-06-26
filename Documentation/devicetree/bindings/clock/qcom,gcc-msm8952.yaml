@@ -29,9 +29,6 @@ properties:
       - description: Always-on XO source
       - description: DSI phy instance 0 dsi clock
       - description: DSI phy instance 0 byte clock
-      - description: External MCLK clock
-      - description: External Primary I2S clock
-      - description: External Secondary I2S clock
 
   clock-names:
     items:
@@ -39,9 +36,6 @@ properties:
       - const: xo_a
       - const: dsi0pll
       - const: dsi0pllbyte
-      - const: ext_mclk
-      - const: ext_pri_i2s
-      - const: ext_sec_i2s
 
 required:
   - compatible

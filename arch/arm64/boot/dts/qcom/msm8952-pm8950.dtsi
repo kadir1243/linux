@@ -45,9 +45,16 @@
 &rpm_requests {
 	pm8950_rpm_regulators: regulators {
 		compatible = "qcom,rpm-pm8950-regulators";
-		vdd_l1_l2_l3-supply = <&pm8950_s3>;
-		vdd_l4_l5_l6-supply = <&pm8950_s4>;
-		vdd_l7-supply = <&pm8950_s4>;
+		vdd_s1-supply = <&vph_pwr>;
+		vdd_s2-supply = <&vph_pwr>;
+		vdd_s3-supply = <&vph_pwr>;
+		vdd_s4-supply = <&vph_pwr>;
+		vdd_s6-supply = <&vph_pwr>;
+		vdd_l1_l19-supply = <&pm8950_s3>;
+		vdd_l2_l23-supply = <&pm8950_s3>;
+		vdd_l3-supply = <&pm8950_s3>;
+		vdd_l5_l6_l7_l16-supply = <&pm8950_s4>;
+		vdd_l8_l11_l12_l17_l22-supply = <&vph_pwr>;
 
 		pm8950_s1: s1 {
 			regulator-min-microvolt = <1000000>;
