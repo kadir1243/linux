@@ -307,7 +307,7 @@ static const struct clk_parent_data gcc_xo_gpll0a_dsiphy_parent_data[] = {
 	{ .fw_name = "dsi0pll", .name = "dsi0pll" },
 };
 
-static const struct clk_parent_data gcc_xo_gpll6_parent_data[] = {
+static const struct clk_parent_data gcc_xo_gpll6_out_main_parent_data[] = {
 	{ .fw_name = "xo" },
 	{ .hw = &gpll6_vote.hw },
 };
@@ -1308,8 +1308,8 @@ static struct clk_rcg2 usb_fs_ic_clk_src = {
 	.freq_tbl = ftbl_gcc_usb_fs_ic_clk,
 	.clkr.hw.init = &(struct clk_init_data){
 		.name = "usb_fs_ic_clk_src",
-		.parent_data = gcc_xo_gpll6_parent_data,
-		.num_parents = ARRAY_SIZE(gcc_xo_gpll6_parent_data),
+		.parent_data = gcc_xo_gpll6_out_main_parent_data,
+		.num_parents = ARRAY_SIZE(gcc_xo_gpll6_out_main_parent_data),
 		.ops = &clk_rcg2_ops,
 	},
 };

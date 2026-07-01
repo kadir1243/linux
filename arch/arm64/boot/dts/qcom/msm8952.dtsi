@@ -832,7 +832,7 @@
 
 		tcsr_mutex: hwlock@1905000 {
 			compatible = "qcom,tcsr-mutex";
-			reg = <0x01905000 0x8000>;
+			reg = <0x01905000 0x20000>;
 			#hwlock-cells = <1>;
 		};
 
@@ -851,10 +851,12 @@
 
 			clocks = <&gcc GCC_MDSS_AHB_CLK>,
 					 <&gcc GCC_MDSS_AXI_CLK>,
-					 <&gcc GCC_MDSS_VSYNC_CLK>;
+					 <&gcc GCC_MDSS_VSYNC_CLK>,
+					 <&gcc GCC_MDSS_MDP_CLK>;
 			clock-names = "iface",
 						  "bus",
-						  "vsync";
+						  "vsync",
+						  "core";
 
 			interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
 
@@ -887,8 +889,9 @@
 							  "tbu";
 
 				operating-points-v2 = <&mdp_opp_table>;
+				power-domains = <&gcc MDSS_GDSC>;
 
-				iommus = <&apps_iommu 4>;
+				iommus = <&apps_iommu 22>;
 
 				ports {
 					#address-cells = <1>;

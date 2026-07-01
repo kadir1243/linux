@@ -82,9 +82,9 @@
 	status = "okay";
 };
 
-&gpu {
-	status = "okay";
-};
+//&gpu {
+//	status = "okay";
+//};
 
 &mdss {
 	status = "okay";
