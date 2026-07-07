@@ -854,7 +854,7 @@ static const struct pinfunction msm8952_functions[] = {
 	MSM_PIN_FUNCTION(blsp_spi1),
 	MSM_PIN_FUNCTION(smb_int),
 	MSM_PIN_FUNCTION(adsp_ext),
-	MSM_PIN_FUNCTION(gpio),
+	MSM_GPIO_PIN_FUNCTION(gpio),
 	MSM_PIN_FUNCTION(blsp_i2c1),
 	MSM_PIN_FUNCTION(prng_rosc),
 	MSM_PIN_FUNCTION(qdss_cti_trig_out_b0),
