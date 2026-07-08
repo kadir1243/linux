@@ -19,30 +19,7 @@
 	};
 
 	chosen {
-		#address-cells = <2>;
-		#size-cells = <2>;
-		ranges;
-
-		stdout-path = "framebuffer0";
-
-		framebuffer0: framebuffer@83200000 {
-			compatible = "simple-framebuffer";
-			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
-			width = <1080>;
-			height = <1920>;
-			stride = <(1080 * 3)>;
-			format = "r8g8b8";
-
-			power-domains = <&gcc MDSS_GDSC>;
-
-			clocks = <&gcc GCC_MDSS_AHB_CLK>,
-			         <&gcc GCC_MDSS_AXI_CLK>,
-			         <&gcc GCC_MDSS_VSYNC_CLK>,
-			         <&gcc GCC_MDSS_MDP_CLK>,
-			         <&gcc GCC_MDSS_BYTE0_CLK>,
-			         <&gcc GCC_MDSS_PCLK0_CLK>,
-			         <&gcc GCC_MDSS_ESC0_CLK>;
-		};
+		stdout-path = "serial0";
 	};
 
 	gpio-keys {
@@ -71,15 +48,15 @@
 };
 
 &blsp2_i2c1 {
-	status = "okay";
+//	status = "okay";
 };
 
 &blsp1_i2c3 {
-	status = "okay";
+//	status = "okay";
 };
 
 &blsp1_uart2 {
-	status = "okay";
+//	status = "okay";
 };
 
 //&gpu {

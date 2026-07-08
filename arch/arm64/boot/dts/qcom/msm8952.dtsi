@@ -1102,7 +1102,7 @@
 
 			/* MDP0 */
 			iommu-ctx@17000 {
-				compatible = "qcom,msm-iommu-v2-ns";
+				compatible = "qcom,msm-iommu-v2-sec";
 				reg = <0x17000 0x1000>;
 				qcom,ctx-asid = <22>;
 				interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
@@ -1229,6 +1229,7 @@
 			#dma-cells = <1>;
 			qcom,ee = <0>;
 			qcom,controlled-remotely;
+			status = "disabled";
 		};
 
 		blsp1_uart1: serial@78af000 {
@@ -1337,6 +1338,7 @@
 			#dma-cells = <1>;
 			qcom,ee = <0>;
 			qcom,controlled-remotely;
+			status = "disabled";
 		};
 
 		blsp2_i2c1: i2c@7af5000 {
