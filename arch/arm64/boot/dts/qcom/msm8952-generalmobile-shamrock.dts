@@ -92,15 +92,15 @@
 	status = "okay";
 };
 
-//&usb {
-//	extcon = <&usb_id>, <&usb_id>;
-//	dr_mode = "peripheral";
-//	status = "okay";
-//};
-//
-//&usb_hs_phy {
-//	status = "okay";
-//};
+&usb {
+	extcon = <&usb_id>, <&usb_id>;
+	dr_mode = "peripheral";
+	status = "okay";
+};
+
+&usb_hs_phy {
+	status = "okay";
+};
 
 &sdc2_cd_on {
 	/delete-property/ bias-pull-up;
@@ -120,6 +120,10 @@
 //
 //	status = "okay";
 //};
+
+&ramoops_mem {
+	status = "okay";
+};
 
 &tlmm {
 	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
