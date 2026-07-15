@@ -102,6 +102,8 @@
 #define MASTER_LPASS_AHB		52
 #define SLAVE_TCU			53
 #define SLAVE_KPSS_AHB			54
+#define MASTER_BLSP_2			55
+#define MASTER_IPA			56
 /*
  * ID's used in RPM messages
  */
