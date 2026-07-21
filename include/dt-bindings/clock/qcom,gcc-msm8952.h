@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
 /*
  * Copyright 2020 Linaro Limited
+ * Copyright 2026 kadir1243 <muzafferkadir@proton.me>
  */
 
 #ifndef _DT_BINDINGS_CLK_MSM_GCC_8952_H

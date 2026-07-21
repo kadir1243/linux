@@ -3,7 +3,9 @@
  * Qualcomm interconnect IDs
  *
  * Copyright (c) 2020, Linaro Ltd.
- * Author: Jun Nie <jun.nie@linaro.org>
+ * Copyright (C) 2026 kadir1243 <muzafferkadir@proton.me>
+ * Original Author: Jun Nie <jun.nie@linaro.org>
+ * Ported for MSM8952 by: kadir1243 <muzafferkadir@proton.me>
  */
 
 #ifndef __DT_BINDINGS_INTERCONNECT_QCOM_MSM8952_H

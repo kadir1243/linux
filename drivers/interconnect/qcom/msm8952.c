@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
  * Copyright (C) 2020 Linaro Ltd
- * Author: Jun Nie <jun.nie@linaro.org>
+ * Copyright (C) 2026 kadir1243 <muzafferkadir@proton.me>
+ * Original Author: Jun Nie <jun.nie@linaro.org>
+ * Ported for MSM8952 by: kadir1243 <muzafferkadir@proton.me>
  */
 
 #include <linux/device.h>
