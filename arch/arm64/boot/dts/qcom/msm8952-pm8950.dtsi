@@ -15,6 +15,10 @@
 		regulator-always-on;
 		regulator-boot-on;
 	};
+
+	usb_vbus: extcon-usb-dummy {
+		compatible = "linux,extcon-usb-dummy";
+	};
 };
 
 &mdss_dsi0 {
@@ -27,12 +31,10 @@
 };
 
 &pm8950_spmi_regulators {
-	vdd_s5-supply = <&vph_pwr>;
-
+	// PM8950 S5 + S6 = VDD_APC supply
 	pm8950_s5: s5 {
 		regulator-min-microvolt = <1050000>;
 		regulator-max-microvolt = <1350000>;
-		regulator-name = "vdd_apc0";
 		regulator-always-on;
 		regulator-boot-on;
 	};
@@ -60,38 +62,29 @@
 		pm8950_s3: s3 {
 			regulator-min-microvolt = <1300000>;
 			regulator-max-microvolt = <1300000>;
-			regulator-always-on; /* Needed for L2 */
+			regulator-always-on;
 		};
 		pm8950_s4: s4 {
 			regulator-min-microvolt = <2050000>;
 			regulator-max-microvolt = <2050000>;
-			regulator-always-on; /* Needed for L5/L7 */
+			regulator-always-on;
 		};
 
-		/*
-		 * Some of the regulators are unused or managed by another
-		 * processor (e.g. the modem). We should still define nodes for
-		 * them to ensure the vote from the application processor can be
-		 * dropped in case the regulators are already on during boot.
-		 *
-		 * The labels for these nodes are omitted on purpose because
-		 * boards should configure a proper voltage before using them.
-		 */
 		l1 {};
 
 		pm8950_l2: l2 {
 			regulator-min-microvolt = <1200000>;
 			regulator-max-microvolt = <1200000>;
+			regulator-always-on;
+			regulator-boot-on;
 		};
 
 		/* pm8950_l3 is managed by rpmpd (RPMPD_VDDMX) */
 
-		l4 {};
-
 		pm8950_l5: l5 {
 			regulator-min-microvolt = <1800000>;
 			regulator-max-microvolt = <1800000>;
-			regulator-always-on; /* Needed for most digital I/O */
+			regulator-always-on;
 		};
 
 		pm8950_l6: l6 {
@@ -102,7 +95,7 @@
 		pm8950_l7: l7 {
 			regulator-min-microvolt = <1800000>;
 			regulator-max-microvolt = <1800000>;
-			regulator-always-on; /* Needed for CPU PLL */
+			regulator-always-on;
 		};
 
 		pm8950_l8: l8 {
@@ -185,8 +178,9 @@
 	vqmmc-supply = <&pm8950_l12>;
 };
 
-&usb_hs_phy {
-	vdd-supply = <&pm8950_l2>;
-	vdda1p8-supply = <&pm8950_l7>;
-	vdda3p3-supply = <&pm8950_l13>;
+&usb_hs_phy_8916 {
+	extcon = <&usb_vbus>;
+//	vdd-supply = <&pm8950_l2>;
+	v1p8-supply = <&pm8950_l7>;
+	v3p3-supply = <&pm8950_l13>;
 };

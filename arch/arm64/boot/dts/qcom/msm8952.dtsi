@@ -814,6 +814,35 @@
 				bias-disable;
 			};
 
+			wcss_wlan_default: wcss-wlan-default-state  {
+				wcss-wlan2-pins {
+					pins = "gpio76";
+					function = "wcss_wlan2";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+
+				wcss-wlan1-pins {
+					pins = "gpio77";
+					function = "wcss_wlan1";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+
+				wcss-wlan0-pins {
+					pins = "gpio78";
+					function = "wcss_wlan0";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+
+				wcss-wlan-pins {
+					pins = "gpio79", "gpio80";
+					function = "wcss_wlan";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+			};
 		};
 
 		gcc: clock-controller@1800000 {
@@ -1172,7 +1201,7 @@
 			#interrupt-cells = <4>;
 		};
 
-		sdhc_1: mmc@7824000 {
+		sdhc_1: mmc@7824900 {
 			compatible = "qcom,msm8952-sdhci", "qcom,sdhci-msm-v4";
 			reg = <0x07824900 0x500>, <0x07824000 0x800>;
 			reg-names = "hc", "core";
@@ -1199,7 +1228,7 @@
 			status = "disabled";
 		};
 
-		sdhc_2: mmc@7864000 {
+		sdhc_2: mmc@7864900 {
 			compatible = "qcom,msm8952-sdhci", "qcom,sdhci-msm-v4";
 			reg = <0x07864900 0x11c>, <0x07864000 0x800>;
 			reg-names = "hc", "core";
@@ -1228,7 +1257,10 @@
 			interrupts = <GIC_SPI 238 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&gcc GCC_BLSP1_AHB_CLK>;
 			clock-names = "bam_clk";
+			qcom,controlled-remotely;
 			#dma-cells = <1>;
+			num-channels = <10>;
+			qcom,num-ees = <4>;
 			qcom,ee = <0>;
 			status = "disabled";
 		};
@@ -1342,11 +1374,29 @@
 			status = "disabled";
 		};
 
+		blsp2_i2c4: i2c@7af8000 {
+			compatible = "qcom,i2c-qup-v2.2.1";
+			reg = <0x07af8000 0x600>;
+			interrupts = <GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&gcc GCC_BLSP2_QUP4_I2C_APPS_CLK>,
+			         <&gcc GCC_BLSP2_AHB_CLK>;
+			clock-names = "core", "iface";
+			clock-frequency = <400000>;
+			dmas = <&blsp2_dma 10>, <&blsp2_dma 11>;
+			dma-names = "tx", "rx";
+			pinctrl-0 = <&blsp2_i2c4_default>;
+			pinctrl-1 = <&blsp2_i2c4_sleep>;
+			pinctrl-names = "default", "sleep";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "disabled";
+		};
+
 		usb_hs_phy: phy@6c000 {
 			compatible = "qcom,usb-hs-28nm-femtophy";
 			reg = <0x0006c000 0x200>;
 			#phy-cells = <0>;
-			clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
+			clocks = <&xo_board>,
 					 <&gcc GCC_USB_HS_PHY_CFG_AHB_CLK>,
 					 <&gcc GCC_USB2A_PHY_SLEEP_CLK>;
 			clock-names = "ref", "ahb", "sleep";
@@ -1375,9 +1425,24 @@
 			dr_mode = "otg";
 			phy_type = "ulpi";
 			phy-names = "usb-phy";
-			phys = <&usb_hs_phy>;
+			phys = <&usb_hs_phy_8916>;
 			status = "disabled";
 			#reset-cells = <1>;
+
+			ulpi {
+				usb_hs_phy_8916: phy {
+					compatible = "qcom,usb-hs-phy-msm8916",
+					             "qcom,usb-hs-phy";
+					#phy-cells = <0>;
+					clocks = <&xo_board>, <&gcc GCC_USB2A_PHY_SLEEP_CLK>;
+					clock-names = "ref", "sleep";
+					resets = <&gcc RST_QUSB2_PHY_BCR>, <&gcc RST_USB2_HS_PHY_ONLY_BCR>;
+					reset-names = "phy", "por";
+					qcom,init-seq = /bits/ 8 <0x0 0x73>,
+					                <0x1 0x68>,
+					                <0x2 0x24>;
+				};
+			};
 		};
 
 		intc: interrupt-controller@b000000 {
