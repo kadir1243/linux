@@ -21,6 +21,29 @@
 
 	chosen {
 		stdout-path = "serial0";
+
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		framebuffer0: framebuffer@83200000 {
+			compatible = "simple-framebuffer";
+			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
+			width = <1080>;
+			height = <1920>;
+			stride = <(1080 * 3)>;
+			format = "r8g8b8";
+
+			power-domains = <&gcc MDSS_GDSC>;
+
+			clocks = <&gcc GCC_MDSS_AHB_CLK>,
+			         <&gcc GCC_MDSS_AXI_CLK>,
+			         <&gcc GCC_MDSS_VSYNC_CLK>,
+			         <&gcc GCC_MDSS_MDP_CLK>,
+			         <&gcc GCC_MDSS_BYTE0_CLK>,
+			         <&gcc GCC_MDSS_PCLK0_CLK>,
+			         <&gcc GCC_MDSS_ESC0_CLK>;
+		};
 	};
 
 	gpio-keys {
@@ -117,39 +140,38 @@
 //};
 
 &mdss {
-	status = "okay";
+//	status = "okay";
 };
 
 &mdss_dsi0 {
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&mdss_dsi_default &mdss_te_default>;
 	pinctrl-1 = <&mdss_dsi_sleep &mdss_te_sleep>;
-	status = "okay";
+//	status = "okay";
 
-	panel@0 {
-		compatible = "dijing,otm1901a";
-		reg = <0>;
-
-		vsp-supply = <&lab>;
-		vsn-supply = <&ibb>;
-		reset-gpios = <&tlmm 0 GPIO_ACTIVE_LOW>;
-
-		port {
-			panel_in: endpoint {
-				remote-endpoint = <&mdss_dsi0_out>;
-			};
-		};
-	};
+//	panel@0 {
+//		compatible = "dijing,otm1901a";
+//		reg = <0>;
+//
+//		vsp-supply = <&lab>;
+//		vsn-supply = <&ibb>;
+//		reset-gpios = <&tlmm 0 GPIO_ACTIVE_LOW>;
+//
+//		port {
+//			panel_in: endpoint {
+//				remote-endpoint = <&mdss_dsi0_out>;
+//			};
+//		};
+//	};
 };
 
 &mdss_dsi0_phy {
-	qcom,dsi-phy-regulator-ldo-mode;
-	status = "okay";
+//	status = "okay";
 };
 
 &mdss_dsi0_out {
 	data-lanes = <0 1 2 3>;
-	remote-endpoint = <&panel_in>;
+//	remote-endpoint = <&panel_in>;
 };
 
 &pm8950_resin {
@@ -215,6 +237,23 @@
 &lab {
 	regulator-min-microvolt = <4600000>;
 	regulator-max-microvolt = <6000000>;
+};
+
+&wcnss {
+	vddpx-supply = <&pm8950_l5>;
+	status = "okay";
+};
+
+&wcnss_iris {
+	compatible = "qcom,wcn3660b";
+	vddxo-supply = <&pm8950_l7>;
+	vddrfa-supply = <&pm8950_l19>;
+	vddpa-supply = <&pm8950_l9>;
+	vdddig-supply = <&pm8950_l5>;
+};
+
+&wcnss_mem {
+	status = "okay";
 };
 
 &ramoops_mem {
