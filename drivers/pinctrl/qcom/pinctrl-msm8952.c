@@ -328,9 +328,9 @@ static const unsigned int qdsd_data3_pins[] = { 146 };
 			msm_mux_##f7,				\
 			msm_mux_##f8,				\
 			msm_mux_##f9				\
-		},				        	\
+		},						\
 		.nfuncs = 10,					\
-		.ctl_reg = 0x1000 * id,	        		\
+		.ctl_reg = 0x1000 * id,				\
 		.io_reg = 0x4 + 0x1000 * id,			\
 		.intr_cfg_reg = 0x8 + 0x1000 * id,		\
 		.intr_status_reg = 0xc + 0x1000 * id,		\
@@ -352,7 +352,7 @@ static const unsigned int qdsd_data3_pins[] = { 146 };
 	}
 
 #define SDC_PINGROUP(pg_name, ctl, pull, drv)	\
-	{					        \
+	{						\
 		.grp = PINCTRL_PINGROUP(#pg_name, 	\
 			pg_name##_pins, 		\
 			ARRAY_SIZE(pg_name##_pins)),	\

@@ -1315,7 +1315,7 @@
 			reg = <0x078b7000 0x600>;
 			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&gcc GCC_BLSP1_QUP3_I2C_APPS_CLK>,
-			         <&gcc GCC_BLSP1_AHB_CLK>;
+					 <&gcc GCC_BLSP1_AHB_CLK>;
 			clock-names = "core", "iface";
 			clock-frequency = <400000>;
 			dmas = <&blsp1_dma 8>, <&blsp1_dma 9>;
@@ -1379,7 +1379,7 @@
 			reg = <0x07af8000 0x600>;
 			interrupts = <GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&gcc GCC_BLSP2_QUP4_I2C_APPS_CLK>,
-			         <&gcc GCC_BLSP2_AHB_CLK>;
+					 <&gcc GCC_BLSP2_AHB_CLK>;
 			clock-names = "core", "iface";
 			clock-frequency = <400000>;
 			dmas = <&blsp2_dma 10>, <&blsp2_dma 11>;
@@ -1395,27 +1395,27 @@
 		wcnss: remoteproc@a204000 {
 			compatible = "qcom,pronto-v3-pil", "qcom,pronto";
 			reg = <0x0a204000 0x2000>,
-			      <0x0a202000 0x1000>,
-			      <0x0a21b000 0x3000>;
+				  <0x0a202000 0x1000>,
+				  <0x0a21b000 0x3000>;
 			reg-names = "ccu",
-			            "dxe",
-			            "pmu";
+						"dxe",
+						"pmu";
 
 			memory-region = <&wcnss_mem>;
 
 			interrupts-extended = <&intc GIC_SPI 149 IRQ_TYPE_EDGE_RISING>,
-			                      <&wcnss_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
-			                      <&wcnss_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
-			                      <&wcnss_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-			                      <&wcnss_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
+								  <&wcnss_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
 			interrupt-names = "wdog",
-			                  "fatal",
-			                  "ready",
-			                  "handover",
-			                  "stop-ack";
+							  "fatal",
+							  "ready",
+							  "handover",
+							  "stop-ack";
 
 			power-domains = <&rpmpd RPMPD_VDDCX>,
-			                <&rpmpd RPMPD_VDDMX>;
+							<&rpmpd RPMPD_VDDMX>;
 			power-domain-names = "cx", "mx";
 
 			qcom,smem-states = <&wcnss_smp2p_out 0>;
@@ -1455,13 +1455,13 @@
 						compatible = "qcom,wcnss-wlan";
 
 						interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
-						             <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+									 <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
 						interrupt-names = "tx", "rx";
 
 						qcom,smem-states = <&apps_smsm 10>,
-						                   <&apps_smsm 9>;
+										   <&apps_smsm 9>;
 						qcom,smem-state-names = "tx-enable",
-						                        "tx-rings-empty";
+												"tx-rings-empty";
 					};
 				};
 			};
@@ -1484,9 +1484,9 @@
 		usb: usb@78db000 {
 			compatible = "qcom,ci-hdrc";
 			reg = <0x078db000 0x200>,
-			      <0x078db200 0x200>;
+				  <0x078db200 0x200>;
 			interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-			             <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+						 <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&gcc GCC_USB_HS_AHB_CLK>, <&gcc GCC_USB_HS_SYSTEM_CLK>;
 			clock-names = "iface", "core";
 			assigned-clocks = <&gcc GCC_USB_HS_SYSTEM_CLK>;
@@ -1507,15 +1507,15 @@
 			ulpi {
 				usb_hs_phy_8916: phy {
 					compatible = "qcom,usb-hs-phy-msm8916",
-					             "qcom,usb-hs-phy";
+								 "qcom,usb-hs-phy";
 					#phy-cells = <0>;
 					clocks = <&xo_board>, <&gcc GCC_USB2A_PHY_SLEEP_CLK>;
 					clock-names = "ref", "sleep";
 					resets = <&gcc RST_QUSB2_PHY_BCR>, <&gcc RST_USB2_HS_PHY_ONLY_BCR>;
 					reset-names = "phy", "por";
 					qcom,init-seq = /bits/ 8 <0x0 0x73>,
-					                <0x1 0x68>,
-					                <0x2 0x24>;
+									<0x1 0x68>,
+									<0x2 0x24>;
 				};
 			};
 		};

@@ -37,12 +37,12 @@
 			power-domains = <&gcc MDSS_GDSC>;
 
 			clocks = <&gcc GCC_MDSS_AHB_CLK>,
-			         <&gcc GCC_MDSS_AXI_CLK>,
-			         <&gcc GCC_MDSS_VSYNC_CLK>,
-			         <&gcc GCC_MDSS_MDP_CLK>,
-			         <&gcc GCC_MDSS_BYTE0_CLK>,
-			         <&gcc GCC_MDSS_PCLK0_CLK>,
-			         <&gcc GCC_MDSS_ESC0_CLK>;
+					 <&gcc GCC_MDSS_AXI_CLK>,
+					 <&gcc GCC_MDSS_VSYNC_CLK>,
+					 <&gcc GCC_MDSS_MDP_CLK>,
+					 <&gcc GCC_MDSS_BYTE0_CLK>,
+					 <&gcc GCC_MDSS_PCLK0_CLK>,
+					 <&gcc GCC_MDSS_ESC0_CLK>;
 		};
 	};
 
@@ -135,19 +135,14 @@
 //	status = "okay";
 };
 
-//&gpu {
-//	status = "okay";
-//};
-
-&mdss {
-//	status = "okay";
+&gpu {
+	status = "okay";
 };
 
 &mdss_dsi0 {
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&mdss_dsi_default &mdss_te_default>;
 	pinctrl-1 = <&mdss_dsi_sleep &mdss_te_sleep>;
-//	status = "okay";
 
 //	panel@0 {
 //		compatible = "dijing,otm1901a";
@@ -163,10 +158,6 @@
 //			};
 //		};
 //	};
-};
-
-&mdss_dsi0_phy {
-//	status = "okay";
 };
 
 &mdss_dsi0_out {
