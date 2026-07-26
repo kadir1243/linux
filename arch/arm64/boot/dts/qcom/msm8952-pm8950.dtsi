@@ -43,7 +43,7 @@
 &rpm_requests {
 	pm8950_rpm_regulators: regulators {
 		compatible = "qcom,rpm-pm8950-regulators";
-		vdd_s1-supply = <&vph_pwr>;
+		vdd_s1-supply = <&vph_pwr>; // I don't have any idea about how correct this supplies are, all i know is it boots.
 		vdd_s2-supply = <&vph_pwr>;
 		vdd_s3-supply = <&vph_pwr>;
 		vdd_s4-supply = <&vph_pwr>;
@@ -183,4 +183,15 @@
 //	vdd-supply = <&pm8950_l2>;
 	v1p8-supply = <&pm8950_l7>;
 	v3p3-supply = <&pm8950_l13>;
+};
+
+&wcnss {
+	vddpx-supply = <&pm8950_l5>;
+};
+
+&wcnss_iris {
+	vddxo-supply = <&pm8950_l7>;
+	vddrfa-supply = <&pm8950_l19>;
+	vddpa-supply = <&pm8950_l9>;
+	vdddig-supply = <&pm8950_l5>;
 };
