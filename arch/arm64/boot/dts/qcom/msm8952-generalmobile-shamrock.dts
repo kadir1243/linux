@@ -135,9 +135,9 @@
 //	status = "okay";
 };
 
-&gpu {
-	status = "okay";
-};
+//&gpu {
+//	status = "okay";
+//};
 
 &mdss_dsi0 {
 	pinctrl-names = "default", "sleep";
