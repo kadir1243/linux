@@ -12,6 +12,8 @@
 #include <dt-bindings/power/qcom-rpmpd.h>
 #include <dt-bindings/thermal/thermal.h>
 #include <dt-bindings/arm/qcom,ids.h>
+#include <dt-bindings/soc/qcom,memshare.h>
+#include <dt-bindings/soc/qcom,apr.h>
 
 / {
 	interrupt-parent = <&intc>;
@@ -201,6 +203,29 @@
 		};
 	};
 
+	memshare: memshare {
+		compatible = "qcom,memshare";
+		qcom,legacy-client = <&memshare_gps>;
+
+		status = "disabled";
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		mpss@0 {
+			reg = <MEMSHARE_PROC_MPSS_V01>;
+			qcom,qrtr-node = <0>;
+
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			memshare_gps: gps@0 {
+				reg = <0>;
+				memory-region = <&gps_mem>;
+			};
+		};
+	};
+
 	memory@80000000 {
 		/* We expect the bootloader to fill in the reg */
 		reg = <0 0x80000000 0 0>;
@@ -253,6 +278,15 @@
 
 		adsp_mem: adsp {
 			size = <0x0 0x400000>;
+			alignment = <0x0 0x100000>;
+			alloc-ranges = <0x0 0x86800000 0x0 0x8000000>;
+			no-map;
+
+			status = "disabled";
+		};
+
+		gps_mem: gps {
+			size = <0x0 0x200000>;
 			alignment = <0x0 0x100000>;
 			alloc-ranges = <0x0 0x86800000 0x0 0x8000000>;
 			no-map;
@@ -814,6 +848,36 @@
 				function = "gpio";
 				drive-strength = <2>;
 				bias-disable;
+			};
+
+			wcss_wlan_default: wcss-wlan-default-state  {
+				wcss-wlan2-pins {
+					pins = "gpio76";
+					function = "wcss_wlan2";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+
+				wcss-wlan1-pins {
+					pins = "gpio77";
+					function = "wcss_wlan1";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+
+				wcss-wlan0-pins {
+					pins = "gpio78";
+					function = "wcss_wlan0";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
+
+				wcss-wlan-pins {
+					pins = "gpio79", "gpio80";
+					function = "wcss_wlan";
+					drive-strength = <6>;
+					bias-pull-up;
+				};
 			};
 		};
 
@@ -1405,6 +1469,81 @@
 			#size-cells = <0>;
 
 			status = "disabled";
+		};
+
+		wcnss: remoteproc@a204000 {
+			compatible = "qcom,pronto-v3-pil", "qcom,pronto";
+			reg = <0x0a204000 0x2000>,
+				  <0x0a202000 0x1000>,
+				  <0x0a21b000 0x3000>;
+			reg-names = "ccu",
+						"dxe",
+						"pmu";
+
+			memory-region = <&wcnss_mem>;
+
+			interrupts-extended = <&intc GIC_SPI 149 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+								  <&wcnss_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
+			interrupt-names = "wdog",
+							  "fatal",
+							  "ready",
+							  "handover",
+							  "stop-ack";
+
+			power-domains = <&rpmpd RPMPD_VDDCX>,
+							<&rpmpd RPMPD_VDDMX>;
+			power-domain-names = "cx", "mx";
+
+			qcom,smem-states = <&wcnss_smp2p_out 0>;
+			qcom,smem-state-names = "stop";
+
+			pinctrl-0 = <&wcss_wlan_default>;
+			pinctrl-names = "default";
+
+			status = "disabled";
+
+			wcnss_iris: iris {
+				/* Separate chip, compatible is board-specific */
+				clocks = <&rpmcc RPM_SMD_RF_CLK2>;
+				clock-names = "xo";
+			};
+
+			smd-edge {
+				interrupts = <GIC_SPI 142 IRQ_TYPE_EDGE_RISING>;
+
+				mboxes = <&apcs1 17>;
+				qcom,smd-edge = <6>;
+				qcom,remote-pid = <4>;
+
+				label = "pronto";
+
+				wcnss_ctrl: wcnss {
+					compatible = "qcom,wcnss";
+					qcom,smd-channels = "WCNSS_CTRL";
+
+					qcom,mmio = <&wcnss>;
+
+					wcnss_bt: bluetooth {
+						compatible = "qcom,wcnss-bt";
+					};
+
+					wcnss_wifi: wifi {
+						compatible = "qcom,wcnss-wlan";
+
+						interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
+									 <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+						interrupt-names = "tx", "rx";
+
+						qcom,smem-states = <&apps_smsm 10>,
+										<&apps_smsm 9>;
+						qcom,smem-state-names = "tx-enable",
+												"tx-rings-empty";
+					};
+				};
+			};
 		};
 
 		usb_hs_phy: phy@6c000 {
