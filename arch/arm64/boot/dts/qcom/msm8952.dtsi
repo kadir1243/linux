@@ -1277,6 +1277,76 @@
 			status = "disabled";
 		};
 
+		modem: remoteproc@4080000 {
+			compatible = "qcom,msm8952-mss-pil";
+			reg = <0x04080000 0x100>,
+			      <0x04020000 0x040>;
+
+			reg-names = "qdsp6", "rmb";
+
+			interrupts-extended = <&intc GIC_SPI 24 IRQ_TYPE_EDGE_RISING>,
+			                      <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+			                      <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+			                      <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+			                      <&modem_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
+			interrupt-names = "wdog", "fatal", "ready",
+			                  "handover", "stop-ack";
+
+			power-domains = <&rpmpd RPMPD_VDDCX>,
+			                <&rpmpd RPMPD_VDDMX>;
+			power-domain-names = "cx", "mx";
+
+			clocks = <&gcc GCC_MSS_CFG_AHB_CLK>,
+			         <&gcc GCC_MSS_Q6_BIMC_AXI_CLK>,
+			         <&gcc GCC_BOOT_ROM_AHB_CLK>,
+			         <&rpmcc RPM_SMD_XO_CLK_SRC>;
+			clock-names = "iface", "bus", "mem", "xo";
+
+			qcom,smem-states = <&modem_smp2p_out 0>;
+			qcom,smem-state-names = "stop";
+
+			resets = <&gcc RST_MSS_BCR>;
+			reset-names = "mss_restart";
+
+			qcom,halt-regs = <&tcsr 0x18000 0x19000 0x1a000>;
+
+			status = "disabled";
+
+			bam_dmux: bam-dmux {
+				compatible = "qcom,bam-dmux";
+
+				interrupt-parent = <&hexagon_smsm>;
+				interrupts = <1 IRQ_TYPE_EDGE_BOTH>, <11 IRQ_TYPE_EDGE_BOTH>;
+				interrupt-names = "pc", "pc-ack";
+
+				qcom,smem-states = <&apps_smsm 1>, <&apps_smsm 11>;
+				qcom,smem-state-names = "pc", "pc-ack";
+
+				dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
+				dma-names = "tx", "rx";
+
+				status = "disabled";
+			};
+
+			mba {
+				memory-region = <&mba_mem>;
+			};
+
+			mpss {
+				memory-region = <&mpss_mem>;
+			};
+
+			smd-edge {
+				interrupts = <GIC_SPI 25 IRQ_TYPE_EDGE_RISING>;
+
+				qcom,smd-edge = <0>;
+				mboxes = <&apcs1 12>;
+				qcom,remote-pid = <1>;
+
+				label = "modem";
+			};
+		};
+
 		sdhc_1: mmc@7824900 {
 			compatible = "qcom,msm8952-sdhci", "qcom,sdhci-msm-v4";
 			reg = <0x07824900 0x500>, <0x07824000 0x800>, <0x7824e00 0x200>;
