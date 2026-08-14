@@ -1446,6 +1446,27 @@
 				interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>;
 			};
 
+			/* IPA SHARED */
+			iommu-ctx@19000 {
+				compatible = "qcom,msm-iommu-v1-ns";
+				reg = <0x19000 0x1000>;
+				interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
+			};
+
+			/* IPA WLAN */
+			iommu-ctx@1a000 {
+				compatible = "qcom,msm-iommu-v1-ns";
+				reg = <0x1a000 0x1000>;
+				interrupts = <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>;
+			};
+
+			/* IPA UC */
+			iommu-ctx@1b000 {
+				compatible = "qcom,msm-iommu-v1-ns";
+				reg = <0x1b000 0x1000>;
+				interrupts = <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
+			};
+
 		};
 
 		gpu_iommu: iommu@1f08000 {
@@ -1918,6 +1939,19 @@
 									<0x2 0x24>;
 				};
 			};
+		};
+
+		ipa: ipa@7900000 {
+			compatible = "qcom,ipa-lite-v2.6";
+			reg = <0x7900000 0x47000>;
+			clocks = <&rpmcc RPM_SMD_IPA_CLK>;
+			interrupts = <GIC_SPI 228 IRQ_TYPE_EDGE_RISING>,
+					<GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "ipa", "dma";
+			iommus = <&apps_iommu 0x19>, <&apps_iommu 0x1a>, <&apps_iommu 0x1b>;
+			modem-remoteproc = <&modem>;
+
+			status = "disabled";
 		};
 
 		intc: interrupt-controller@b000000 {
