@@ -411,6 +411,16 @@
 	rpm: remoteproc {
 		compatible = "qcom,msm8952-rpm-proc", "qcom,rpm-proc";
 
+		master-stats {
+			compatible = "qcom,rpm-master-stats";
+			qcom,rpm-msg-ram = <&apss_master_stats>,
+					<&mpss_master_stats>,
+					<&pronto_master_stats>,
+					<&tz_master_stats>,
+					<&lpass_master_stats>;
+			qcom,master-names = "APSS", "MPSS", "PRONTO", "TZ", "LPASS";
+		};
+
 		smd-edge {
 			interrupts = <GIC_SPI 168 IRQ_TYPE_EDGE_RISING>;
 			qcom,ipc = <&apcs1 8 0>;
@@ -591,6 +601,35 @@
 		rpm_msg_ram: sram@60000 {
 			compatible = "qcom,rpm-msg-ram";
 			reg = <0x00060000 0x8000>;
+
+			#address-cells = <1>;
+			#size-cells = <1>;
+			ranges = <0 0x00060000 0x8000>;
+
+			apss_master_stats: sram@150 {
+				reg = <0x150 0x14>;
+			};
+
+			mpss_master_stats: sram@1150 {
+				reg = <0x1150 0x14>;
+			};
+
+			pronto_master_stats: sram@2550 {
+				reg = <0x2550 0x14>;
+			};
+
+			tz_master_stats: sram@3550 {
+				reg = <0x3550 0x14>;
+			};
+
+			lpass_master_stats: sram@4550 {
+				reg = <0x4550 0x14>;
+			};
+		};
+
+		sram@290000 {
+			compatible = "qcom,rpm-stats";
+			reg = <0x00290000 0x10000>;
 		};
 
 		rng@22000 {
