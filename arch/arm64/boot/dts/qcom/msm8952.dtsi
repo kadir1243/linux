@@ -1404,6 +1404,13 @@
 			#size-cells = <1>;
 			#iommu-cells = <1>;
 
+			/* LPASS */
+			iommu-ctx@12000 {
+				compatible = "qcom,msm-iommu-v1-ns";
+				reg = <0x12000 0x1000>;
+				interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+			};
+
 			/* CPP */
 			iommu-ctx@13000 {
 				compatible = "qcom,msm-iommu-v1-ns";
@@ -2234,6 +2241,7 @@
 			assigned-clocks = <&q6afecc LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE
 			                   LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
 			assigned-clock-rates = <9600000>;
+			iommus = <&apps_iommu 0x12>;
 			status = "disabled";
 		};
 
