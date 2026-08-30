@@ -484,6 +484,23 @@
 				};
 			};
 		};
+
+		mpm: interrupt-controller {
+			compatible = "qcom,mpm";
+			qcom,rpm-msg-ram = <&apss_mpm>;
+			interrupts = <GIC_SPI 171 IRQ_TYPE_EDGE_RISING>;
+			mboxes = <&apcs1 1>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			#power-domain-cells = <0>;
+			interrupt-parent = <&intc>;
+			qcom,mpm-pin-count = <64>;
+			qcom,mpm-pin-map = <2 216>, /* TSENS uplow */
+					<49 172>, /* usb1_hs_async_wakeup_irq */
+					<53 104>, /* MDSS */
+					<58 166>, /* usb_hs_irq */
+					<62 222>; /* SPMI */
+		};
 	};
 
 	smp2p-adsp {
@@ -610,6 +627,10 @@
 				reg = <0x150 0x14>;
 			};
 
+			apss_mpm: sram@1d0 {
+				reg = <0x1d0 0x64>;
+			};
+
 			mpss_master_stats: sram@1150 {
 				reg = <0x1150 0x14>;
 			};
@@ -672,6 +693,7 @@
 			interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
 			gpio-controller;
 			gpio-ranges = <&tlmm 0 0 134>;
+			wakeup-parent = <&mpm>;
 			#gpio-cells = <2>;
 			interrupt-controller;
 			#interrupt-cells = <2>;
@@ -1912,8 +1934,8 @@
 			compatible = "qcom,ci-hdrc";
 			reg = <0x078db000 0x200>,
 				  <0x078db200 0x200>;
-			interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-						 <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+			interrupts-extended = <&intc GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
+						<&mpm 49 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&gcc GCC_USB_HS_AHB_CLK>, <&gcc GCC_USB_HS_SYSTEM_CLK>;
 			clock-names = "iface", "core";
 			assigned-clocks = <&gcc GCC_USB_HS_SYSTEM_CLK>;
@@ -1929,6 +1951,7 @@
 			phy-names = "usb-phy";
 			phys = <&usb_hs_phy_8916>;
 			#reset-cells = <1>;
+			wakeup-source;
 
 			status = "disabled";
 
